@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASEEM ⊗ HACKER</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #020202;
+            color: #00ff66;
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Top Menu & Channel Link Bar */
+        .top-navbar {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0d0d0d;
+            border: 1px solid #ff0055;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .channel-btn {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px dashed #00ffff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .channel-btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        .dots-menu {
+            color: #ff0055;
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .header-title {
+            color: #ff0055;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff0055;
+            margin: 15px 0 25px 0;
+            letter-spacing: 3px;
+        }
+
+        /* Dashboard Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        @media(min-width: 600px) {
+            .grid-container { grid-template-columns: 1fr 1fr; }
+        }
+
+        .attack-card {
+            background: #0a0a0a;
+            border: 1px solid #00ff66;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            color: #00ffff;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #00ffff;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .attack-card label {
+            font-size: 11px;
+            color: #aaaaaa;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .attack-card input {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            color: #ffff00;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 13px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .attack-card input:focus {
+            outline: none;
+            border-color: #ff0055;
+        }
+
+        .attack-btn {
+            background: #111;
+            border: 1px solid #ff0055;
+            color: #ff0055;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: auto;
+        }
+        .attack-btn:hover {
+            background: #ff0055;
+            color: #fff;
+            box-shadow: 0 0 10px #ff0055;
+        }
+
+        /* Console Window */
+        #terminal-panel {
+            width: 100%;
+            max-width: 800px;
+            background: #000;
+            border: 2px solid #ff0055;
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.3);
+            border-radius: 8px;
+            margin-top: 25px;
+            display: none;
+            padding: 15px;
+        }
+
+        .terminal-header {
+            color: #ffff00;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #ffff00;
+        }
+
+        #log-screen {
+            height: 320px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-size: 11px;
+            line-height: 1.5;
+            border-top: 1px solid #222;
+            padding-top: 10px;
+        }
+
+        .log-line {
+            color: #00ff66;
+            white-space: nowrap;
+        }
+
+        /* Status Output Box */
+        .final-alert {
+            background: #1a0000;
+            border: 2px dashed #ff0000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 6px;
+            display: none;
+            width: 100%;
+            max-width: 800px;
+        }
+        .final-alert h2 {
+            color: #ff0000;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            animation: pulse 1s infinite;
+        }
+
+        /* Footer / Credits */
+        .footer-credits {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #555555;
+            text-align: center;
+            border-top: 1px solid #111;
+            padding-top: 15px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .dev-link {
+            color: #ff0055;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3 Dot Top Navigation Menu bar with Channel Link -->
+    <div class="top-navbar" id="top-nav">
+        <div class="dots-menu">•••</div>
+        <a href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" target="_blank" class="channel-btn">Official Channel Link</a>
+    </div>
+
+    <div class="header-title" id="main-title">𝙒𝘼𝙎𝙀𝙀𝙈 𝙃𝘼𝘾𝙆𝙀𝙍 
+    </div>
+
+    <!-- Active Grid Main Panel -->
+    <div class="grid-container" id="dashboard-grid">
+        
+        <!-- WhatsApp Unit -->
+        <div class="attack-card">
+            <div class="card-title">⚡ WhatsApp Exploit</div>
+            <label>Target Number:</label>
+            <input type="text" id="target-wa" placeholder="+923xxxxxxxx">
+            <label>Reports Count (1,000 - 100,000):</label>
+            <input type="number" id="count-wa" placeholder="e.g. 50000" min="1000" max="100000">
+            <button class="attack-btn" onclick="triggerSystem('WhatsApp', 'target-wa', 'count-wa')">Execute Ban</button>
+        </div>
+
+        <!-- YouTube Unit -->
+        <div class="attack-card">
+            <div class="card-title">⚡ YouTube Terminator</div>
+            <label>Channel Link:</label>
+            <input type="text" id="target-yt" placeholder="https://youtube.com/...">
+            <label>Reports Count (1,000 - 100,000):</label>
+            <input type="number" id="count-yt" placeholder="e.g. 25000" min="1000" max="100000">
+            <button class="attack-btn" onclick="triggerSystem('YouTube', 'target-yt', 'count-yt')">Execute Ban</button>
+        </div>
+
+        <!-- Facebook Unit -->
+        <div class="attack-card">
+            <div class="card-title">⚡ Facebook Mass Report</div>
+            <label>Profile/Page Link:</label>
+            <input type="text" id="target-fb" placeholder="https://facebook.com/...">
+            <label>Reports Count (1,000 - 100,000):</label>
+            <input type="number" id="count-fb" placeholder="e.g. 80000" min="1000" max="100000">
+            <button class="attack-btn" onclick="triggerSystem('Facebook', 'target-fb', 'count-fb')">Execute Ban</button>
+        </div>
+
+        <!-- Instagram Unit -->
+        <div class="attack-card">
+            <div class="card-title">⚡ Instagram Hyper-Flood</div>
+            <label>Account Link:</label>
+            <input type="text" id="target-ig" placeholder="https://instagram.com/...">
+            <label>Reports Count (1,000 - 100,000):</label>
+            <input type="number" id="count-ig" placeholder="e.g. 100000" min="1000" max="100000">
+            <button class="attack-btn" onclick="triggerSystem('Instagram', 'target-ig', 'count-ig')">Execute Ban</button>
+        </div>
+
+    </div>
+
+    <!-- Active Streaming Console Terminal Window -->
+    <div id="terminal-panel">
+        <div class="terminal-header">Active Injections: <span id="live-counter">0</span></div>
+        <div id="log-screen"></div>
+    </div>
+
+    <!-- Finalized Lock Alert Popup Box -->
+    <div class="final-alert" id="status-box">
+        <h2>CRITICAL ERROR: VECTOR DEPLOYED</h2>
+        <div id="status-details"></div>
+    </div>
+
+    <!-- Developer Credits and Identity Anchor Section -->
+    <div class="footer-credits" id="credits-footer">
+        Maintained & Developed by: <a href="https://tiktok.com/@waseempathan902" target="_blank" class="dev-link">WASEEM PRO HACKER</a>
+    </div>
+
+<script>
+    function triggerSystem(platform, inputId, countId) {
+        const targetValue = document.getElementById(inputId).value.trim();
+        let userReportsCount = parseInt(document.getElementById(countId).value);
+
+        if (!targetValue) {
+            alert(`Please provide a valid target for ${platform}!`);
+            return;
+        }
+
+        // Validate Custom Numbers Boundary (Min 1000, Max 100000)
+        if (isNaN(userReportsCount) || userReportsCount < 1000 || userReportsCount > 100000) {
+            alert("Error: Please set custom reports limit between 1,000 and 100,000 only!");
+            return;
+        }
+
+        // Hide setups layout dynamically
+        document.getElementById('dashboard-grid').style.display = 'none';
+        document.getElementById('top-nav').style.display = 'none';
+        document.getElementById('credits-footer').style.display = 'none';
+        
+        // Show Terminal Module Interface
+        const terminalPanel = document.getElementById('terminal-panel');
+        const logScreen = document.getElementById('log-screen');
+        const liveCounter = document.getElementById('live-counter');
+        terminalPanel.style.display = 'block';
+
+        logScreen.innerHTML = `
+            <div style="color:#00ffff;">[SYS] Booting ROMAN HACKER Secure Shell Node...</div>
+            <div style="color:#00ffff;">[SYS] Target Grid Verified: ${platform}</div>
+            <div style="color:#00ffff;">[SYS] Address Key Signature: ${targetValue}</div>
+            <div style="color:#ffff00;">[SYS] Handshake authorized under user: romanhacker465@gmail.com</div>
+            <div style="color:#ff0055;">[SYS] Target Custom Overflow Ceiling: ${userReportsCount.toLocaleString()} Hits</div><br>
+        `;
+
+        let currentReport = 0;
+
+        const runner = setInterval(() => {
+            // Speed loops handling injection lines printout 
+            for(let k = 0; k < 6; k++) {
+                if (currentReport < userReportsCount) {
+                    currentReport++;
+                    
+                    const line = document.createElement('div');
+                    line.className = 'log-line';
+                    line.innerText = `Sending report romanhacker465@gmail.com ${currentReport}`;
+                    logScreen.appendChild(line);
+                }
+            }
+
+            liveCounter.innerText = currentReport.toLocaleString();
+            logScreen.scrollTop = logScreen.scrollHeight;
+
+            if (currentReport >= userReportsCount) {
+                clearInterval(runner);
+                
+                // Show completion block output with 3-7 day banner notice
+                document.getElementById('status-details').innerHTML = `
+                    <p>Mass report packets payload fully stacked onto the <b>${platform}</b> server grid.</p>
+                    <p>Total User Injected Hits: <span style="color:#ffff00; font-weight:bold;">${userReportsCount.toLocaleString()} Verified Logs</span></p>
+                    <p style="color:#ff0055; font-size:16px; font-weight:bold; margin-top:15px;">⚠️ Verification Response Completed. Results out in 3 to 7 days max!</p>
+                `;
+                document.getElementById('status-box').style.display = 'block';
+            }
+        }, 1); // High-speed performance index execution
+    }
+</script>
+
+</body>
+</html>
