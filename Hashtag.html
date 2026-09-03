@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Trending Hashtags Generator By Waseem Hacker</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at top,#241044 0,#0b0713 42%,#050509 100%);
+  color:#fff;display:flex;justify-content:center;padding:25px 14px;
+}
+.container{width:100%;max-width:560px}
+.card{
+  background:rgba(18,13,28,.88);border:1px solid rgba(255,255,255,.12);
+  border-radius:25px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.45);
+  backdrop-filter:blur(12px)
+}
+.logo{display:block;width:105px;height:105px;object-fit:cover;border-radius:22px;margin:0 auto 18px;
+      border:2px solid rgba(255,255,255,.2)}
+h1{text-align:center;font-size:28px;margin-bottom:8px}
+.sub{text-align:center;color:#aaa;font-size:14px;margin-bottom:25px}
+label{display:block;margin-bottom:9px;font-weight:700}
+input{
+ width:100%;padding:16px;border-radius:14px;border:1px solid #3a3048;
+ background:#0d0a12;color:#fff;outline:none;font-size:16px;
+}
+input:focus{border-color:#ff2b55}
+button{
+ border:0;border-radius:14px;padding:14px 18px;font-size:15px;font-weight:700;
+ cursor:pointer;transition:.2s
+}
+.search{width:100%;margin-top:13px;background:linear-gradient(90deg,#ff0050,#7b2cff);color:#fff}
+.search:hover,.wa:hover{transform:translateY(-2px)}
+.results{display:none;margin-top:25px}
+.resultHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.resultHead h2{font-size:18px}
+.copyall{background:#fff;color:#111;padding:9px 13px;font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:9px}
+.tag{
+ display:flex;align-items:center;gap:7px;background:#17121e;border:1px solid #33283f;
+ border-radius:12px;padding:9px 10px;color:#eee;font-size:14px
+}
+.tag button{padding:5px 8px;border-radius:8px;background:#29202f;color:#fff;font-size:11px}
+.empty{color:#888;text-align:center;padding:15px}
+.wa{
+ display:block;text-align:center;text-decoration:none;margin-top:20px;
+ background:#25D366;color:#fff;padding:15px;border-radius:14px;font-weight:800;
+ transition:.2s
+}
+footer{text-align:center;color:#777;font-size:12px;margin-top:20px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <img class="logo" src="https://raw.githubusercontent.com/waseempathan501/Photo-link-/refs/heads/main/Screenshot_20260831-211241%7E2.jpg" alt="Arslan Zafar Logo">
+    <h1>🎯 TikTok Hashtags Generator</h1>
+    <p class="sub">Enter your Topic and Generate relevant TikTok trending Hashtags.</p>
+
+    <label for="topic">Topic Keyword</label>
+    <input id="topic" type="text" placeholder="e.g. (Dance),(Gaming)" autocomplete="off">
+    <button class="search" onclick="generateTags()">🔍 Search Hashtags</button>
+
+    <section class="results" id="results">
+      <div class="resultHead">
+        <h2>🔥 Trending Hashtags</h2>
+        <button class="copyall" onclick="copyAll()">📋 Copy All</button>
+      </div>
+      <div class="tags" id="tags"></div>
+    </section>
+
+    <a class="wa" href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" target="_blank">
+      💬 Join WhatsApp Channel
+    </a>
+
+    <footer>©2026 Powered By Waseem Hacker. All Right Reserved.</footer>
+  </div>
+</div>
+
+<script>
+let currentTags=[];
+
+const presets={
+ dance:["#dance","#dancetiktok","#dancechallenge","#dancer","#trending","#viral","#fyp","#foryou","#foryoupage","#tiktok"],
+ gaming:["#gaming","#gamingtiktok","#gamer","#gamers","#gamingcommunity","#viral","#trending","#fyp","#foryou","#tiktok"],
+ pubg:["#pubg","#pubgmobile","#pubgmobileindia","#pubgclips","#pubglover","#gaming","#gamer","#viral","#fyp","#tiktok"],
+ "free fire":["#freefire","#freefiremax","#freefireindia","#freefireclips","#garenafreefire","#gaming","#gamer","#viral","#fyp","#tiktok"],
+ default:["#tiktok","#viral","#trending","#fyp","#foryou","#foryoupage","#viralvideo","#tiktokviral","#trend","#explore"]
+};
+
+function cleanTopic(s){
+ return s.trim().toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ");
+}
+function generateTags(){
+ const raw=document.getElementById("topic").value;
+ const topic=cleanTopic(raw);
+ const results=document.getElementById("results");
+ const tagsBox=document.getElementById("tags");
+ if(!topic){ alert("Please enter a topic keyword."); return; }
+
+ let base=presets[topic] || presets.default.slice();
+ const compact=topic.replace(/\s+/g,"");
+ const words=topic.split(" ").filter(Boolean);
+
+ const custom=[
+   "#"+compact,
+   "#"+compact+"tiktok",
+   "#"+compact+"viral",
+   "#"+compact+"trending",
+   "#"+compact+"fyp"
+ ];
+
+ currentTags=[...new Set([...custom,...base])].slice(0,15);
+ tagsBox.innerHTML=currentTags.map((tag,i)=>
+   `<div class="tag"><span>${tag}</span><button onclick="copyTag('${tag}')">Copy</button></div>`
+ ).join("");
+ results.style.display="block";
+}
+async function copyTag(tag){
+ try{await navigator.clipboard.writeText(tag); alert(tag+" copied!");}
+ catch(e){fallbackCopy(tag);}
+}
+async function copyAll(){
+ const text=currentTags.join(" ");
+ try{await navigator.clipboard.writeText(text); alert("All hashtags copied!");}
+ catch(e){fallbackCopy(text);}
+}
+function fallbackCopy(text){
+ const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);
+ ta.select();document.execCommand("copy");ta.remove();alert("Copied!");
+}
+document.getElementById("topic").addEventListener("keydown",e=>{
+ if(e.key==="Enter") generateTags();
+});
+</script>
+</body>
+</html>
