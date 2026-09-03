@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WASEEM ⊗ HACKER WhatsApp Unban</title>
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background:
+        radial-gradient(circle at 15% 10%, rgba(37, 99, 235, .18), transparent 32%),
+        radial-gradient(circle at 85% 90%, rgba(14, 165, 233, .12), transparent 30%),
+        #07111f;
+    color: #e5eefb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 14px;
+    overflow: auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    max-height: 94vh;
+    min-height: 0;
+    background: rgba(10, 22, 38, .97);
+    border: 1px solid #29415e;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(59,130,246,.08);
+    border-radius: 18px;
+    padding: 22px;
+    position: relative;
+    text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.container::-webkit-scrollbar { width: 5px; }
+.container::-webkit-scrollbar-thumb {
+    background: #35516f;
+    border-radius: 10px;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    cursor: pointer;
+    z-index: 100;
+    padding: 4px;
+}
+.menu-btn div {
+    width: 23px;
+    height: 2px;
+    background: #8db8e8;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+.nav-menu {
+    display: none;
+    position: absolute;
+    top: 52px;
+    right: 17px;
+    background: #0c1b2e;
+    border: 1px solid #345273;
+    box-shadow: 0 12px 30px rgba(0,0,0,.4);
+    padding: 11px;
+    border-radius: 10px;
+    z-index: 99;
+    text-align: left;
+}
+.nav-menu p {
+    color: #a9c4e3;
+    font-size: 11px;
+}
+
+h1, h2 {
+    font-size: 21px;
+    color: #eaf4ff;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.skull {
+    font-size: 22px;
+    margin: 7px 0;
+    color: #7db5ef;
+    animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: .8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+.step { display: none; }
+.step.active { display: block; }
+
+label {
+    display: block;
+    margin: 16px 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #b9d4ef;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    background: #081522;
+    border: 1px solid #355777;
+    border-radius: 9px;
+    color: #eaf4ff;
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+    margin-bottom: 12px;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,.3);
+}
+input[readonly] {
+    background: #0d1d2e;
+    color: #a9cbed;
+}
+input::placeholder { color: #617b98; }
+input:focus:not([readonly]) {
+    border-color: #4c8ed9;
+    box-shadow: 0 0 0 3px rgba(76,142,217,.12);
+}
+
+.error-msg {
+    color: #f87171;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #142b46;
+    border: 1px solid #3e6d9f;
+    color: #dcecff;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 9px;
+    box-shadow: none;
+    transition: .2s ease;
+    margin-bottom: 8px;
+}
+.btn:hover {
+    background: #1b3c61;
+    border-color: #5b98d6;
+    transform: translateY(-1px);
+}
+.btn-back {
+    border-color: #4a6076;
+    color: #a9bfd5;
+    background: #101f30;
+}
+.btn-back:hover {
+    background: #172b40;
+    border-color: #7089a1;
+}
+
+.progress-container { margin: 15px 0; }
+.progress-bar-outline {
+    width: 100%;
+    height: 16px;
+    border: 1px solid #355777;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #07111c;
+}
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #38bdf8);
+    transition: width .1s linear;
+}
+.status-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #91b6d8;
+}
+
+.step#stepFinal {
+    padding-bottom: 8px;
+}
+
+.result-box {
+    border: 1px solid #4d647b;
+    box-shadow: none;
+    background: #0b1a2b;
+    padding: 13px;
+    border-radius: 10px;
+    text-align: left;
+    margin: 12px 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #b9cee3;
+}
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3,10,18,.97);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+.popup-content {
+    max-width: 370px;
+    width: 100%;
+    background: #0b1b2d;
+    border: 1px solid #3f6d9d;
+    box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    padding: 22px;
+    border-radius: 14px;
+    text-align: center;
+}
+.popup-btn {
+    background: #1d4f82;
+    color: #eaf4ff;
+    border: 1px solid #5a94cb;
+    padding: 11px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: none;
+    margin-top: 12px;
+}
+
+.footer-promo {
+    margin-top: 15px;
+    padding: 11px;
+    border: 1px solid #304c68;
+    background: #0b1a2b;
+    border-radius: 10px;
+}
+.tg-link {
+    color: #83b8e9;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 12px;
+    border-bottom: 1px dashed #547b9f;
+}
+.edition-text {
+    font-size: 10px;
+    color: #607892;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+    <!-- STEP 0: WhatsApp Verification Screen Popup Lock -->
+    <div class="popup-overlay" id="popupLock">
+        <div class="popup-content">
+            <h2 style="color: #00ff00; text-shadow: 0 0 10px #00ff00; margin-bottom: 10px; font-size: 18px;">🔴 VERIFICATION REQUIRED</h2>
+            
+            <input type="text" value="WASEEM HACKER NO 1 UNBANNER" readonly style="color: #00ff00; border-color: #00ff00; background: rgba(0,30,0,0.5); box-shadow: 0 0 5px #00ff00; font-weight: bold; margin-top: 5px; margin-bottom: 10px;">
+            
+            <button class="popup-btn" id="whatsappVerifyBtn">JOIN & FOLLOW NOW</button>
+            <div id="popupTimer" style="margin-top: 12px; color: #00ffff; font-weight: bold; display: none; font-size: 13px;">
+                Redirecting... Wait <span id="countdown">15</span>s
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Tool Container Locked on Mobile Size -->
+    <div class="container">
+        
+        <!-- 3-Line Developer Menu -->
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <p><strong>DEVELOPER:</strong> WASEEM HACKER</p>
+            <p style="margin-top: 4px;"><strong>NUM:</strong> +923142413307</p>
+        </div>
+
+        <!-- Main Title Header -->
+        <h2>𝙒𝘼𝙎𝙀𝙀𝙈 ⊗ 𝙃𝘼𝘾𝙆𝙀𝙍 𝙐𝙉𝘽𝘼𝙉 </h2>
+        <div class="skull">☠</div>
+
+        <!-- ================= STEP 1: ACCESS KEY (AUTO-FILLED) ================= -->
+        <div class="step active" id="stepKey">
+            <label>🔑 ENTER ACCESS KEY</label>
+            <!-- Auto fill input value as requested -->
+            <input type="text" id="accessKeyInput" value="WASEEM HACKER ON TOP" readonly>
+            <div id="errorKey" class="error-msg"></div>
+            <button class="btn" onclick="triggerAutoVerify()">UNBLOCK ME</button>
+        </div>
+
+        <!-- ================= STEP 2: WHATSAPP NUMBER (UNLOCKED) ================= -->
+        <div class="step" id="stepNum">
+            <label>📱 STEP 1 - WhatsApp Number</label>
+            <!-- User input enabled with clear placeholder -->
+            <input type="text" id="targetNumber" placeholder="e.g. +923142413307">
+            <div id="errorNum" class="error-msg"></div>
+            <button class="btn" onclick="validateNumberStep()">CONTINUE →</button>
+        </div>
+
+        <!-- ================= STEP 3: GMAIL ================= -->
+        <div class="step" id="stepGmail">
+            <label>📧 STEP 2 - Enter Your Gmail</label>
+            <input type="email" id="gmailInput" placeholder="yourname@gmail.com">
+            <div id="errorGmail" class="error-msg"></div>
+            <button class="btn" onclick="validateGmailStep()">CONTINUE →</button>
+            <button class="btn btn-back" onclick="nextStep('stepNum')">← BACK</button>
+        </div>
+
+        <!-- ================= STEP 4: APP PASSWORD (STRICT 16 CHARS) ================= -->
+        <div class="step" id="stepPass">
+            <label>🔐 STEP 3 - Enter Your App Password</label>
+            <p style="font-size: 10px; color: #00ffff; margin-bottom: 8px;">Make sure it is exactly 16 characters</p>
+            <input type="password" id="appPassInput" placeholder="16-char App Password" maxlength="20">
+            <div id="errorPass" class="error-msg"></div>
+            <button class="btn" onclick="validatePasswordStep()">ANALYZE & START</button>
+            <button class="btn btn-back" onclick="nextStep('stepGmail')">← BACK</button>
+        </div>
+
+        <!-- ================= STEP 5: UNBAN TYPE ================= -->
+        <div class="step" id="stepType">
+            <label>⚡ SELECT UNBAN TYPE</label>
+            <button class="btn" style="border-color: #ff3366; color: #ff3366; box-shadow: 0 0 6px #ff3366;" onclick="startProcessing('Temporary')">🟡 TEMPORARY</button>
+            <button class="btn" style="border-color: #ff0000; color: #ff0000; box-shadow: 0 0 6px #ff0000;" onclick="startProcessing('Permanent')">🔴 PERMANENT</button>
+            <button class="btn btn-back" onclick="nextStep('stepPass')">← CHANGE INFO</button>
+        </div>
+
+        <!-- ================= STEP 6: PROCESSING ANIMATION 1 ================= -->
+        <div class="step" id="stepProcess1">
+            <label id="processLabel1">📤 Sending appeal #1 to support@whatsapp.com...</label>
+            <div class="progress-container">
+                <div class="progress-bar-outline">
+                    <div class="progress-fill" id="fill1"></div>
+                </div>
+                <div class="status-text">[<span id="pattern1">░░░░░░░░░░</span>] <span id="percent1">0</span>%</div>
+            </div>
+            <p style="font-size: 11px; color: #00ffff;" id="stageText1">Stage 4/9 | Target: Loading...</p>
+        </div>
+
+        <!-- ================= STEP 7: PROCESSING ANIMATION 2 ================= -->
+        <div class="step" id="stepProcess2">
+            <label>🎉 Unban processing!</label>
+            <div class="progress-container">
+                <div class="progress-bar-outline">
+                    <div class="progress-fill" id="fill2"></div>
+                </div>
+                <div class="status-text">[<span id="pattern2">██░░░░░░░░</span>] <span id="percent2">21</span>%</div>
+            </div>
+            <p style="font-size: 11px; color: #00ffff;" id="stageText2">Stage 9/9 | Target: Loading...</p>
+        </div>
+
+        <!-- ================= STEP 8: FINAL SUCCESS RESULT ================= -->
+        <div class="step" id="stepFinal">
+            <h3 style="color: #ff3333; text-shadow: 0 0 8px #ff3333; margin-top: 5px; font-size: 14px;">🔴 PERMANENT UNBAN SENT SUCCESSFULLY</h3>
+            
+            <div class="result-box">
+                <p>🎯 STATUS: <span style="color: #ff0000; font-weight: bold;">🔴 PERMANENT UNBAN EXECUTED</span></p>
+                <p style="margin-top: 5px;">🎯 48-HOUR restoration completed</p>
+                <p>📧 15 executive appeals processed</p>
+                <p>📱 Target number: <span id="finalTarget" style="color: #00ffff;"></span></p>
+                <br>
+                <p>⏱ Expected result: <span style="color: #fff; font-weight: bold;">24-72 hours</span></p>
+                <p>💯 Success rate: <span style="color: #00ff00;">58% ☠</span></p>
+                <p style="color: #ffff00; margin-top: 3px;">✔ ⚠️ NOTE THIS UNBAN IS 50/50</p>
+            </div>
+
+            <button class="btn" style="border-color: #00ff00; color: #00ff00; box-shadow: 0 0 6px #00ff00;" onclick="resetTool()">🏠 BACK TO HOME PAGE</button>
+            <button class="btn" style="border-color: #ffaa00; color: #ffaa00; box-shadow: 0 0 6px #ffaa00;" onclick="resetTool()">🔄 REQUEST APPEAL AGAIN</button>
+        </div>
+
+        <!-- Global Bottom Promo Section -->
+        <div class="footer-promo">
+            <p style="font-size: 12px; color: #fff;">👥 JOIN WASEEM HACKER CH</p>
+            <p style="font-size: 10px; color: rgba(0, 255, 255, 0.7); margin-top: 2px;">Get latest tools & updates</p>
+            <a href="https://tiktok.com/@waseempathan902" target="_blank" class="tg-link">🚀 FOLLOW MY TIKTOK ACCOUNT</a>
+        </div>
+
+        <div class="edition-text">WASEEM HACKER - 2026 EDITION</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('navMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // Pop-up Lock System
+        document.getElementById('whatsappVerifyBtn').addEventListener('click', function() {
+            window.open('https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S', '_blank');
+            var timerDiv = document.getElementById('popupTimer');
+            var countdownSpan = document.getElementById('countdown');
+            timerDiv.style.display = 'block';
+            this.style.display = 'none';
+
+            var timeLeft = 15;
+            var interval = setInterval(function() {
+                timeLeft--;
+                countdownSpan.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    document.getElementById('popupLock').style.display = 'none';
+                    // Trigger auto redirect on key screen once unlocked
+                    setTimeout(triggerAutoVerify, 500);
+                }
+            }, 1000);
+        });
+
+        function nextStep(stepId) {
+            var steps = document.querySelectorAll('.step');
+            steps.forEach(function(s) { s.classList.remove('active'); });
+            document.getElementById(stepId).classList.add('active');
+            
+            // Hide all errors on step change
+            var errors = document.querySelectorAll('.error-msg');
+            errors.forEach(function(e) { e.style.display = 'none'; });
+        }
+
+        // Auto Verification for Main Screen
+        function triggerAutoVerify() {
+            if (document.getElementById('popupLock').style.display !== 'none') {
+                return; // Lock active hoto aage nahi jayega
+            }
+            nextStep('stepNum');
+        }
+
+        // Validation for Form Fields
+        function validateNumberStep() {
+            var numInput = document.getElementById('targetNumber').value.trim();
+            var error = document.getElementById('errorNum');
+            
+            if (numInput === "") {
+                error.innerText = "🔴 Form line fill karo!";
+                error.style.display = "block";
+            } else {
+                error.style.display = "none";
+                nextStep('stepGmail');
+            }
+        }
+
+        function validateGmailStep() {
+            var gmailInput = document.getElementById('gmailInput').value.trim();
+            var error = document.getElementById('errorGmail');
+            
+            if (gmailInput === "") {
+                error.innerText = "🔴 Form line fill karo!";
+                error.style.display = "block";
+            } else {
+                error.style.display = "none";
+                nextStep('stepPass');
+            }
+        }
+
+        function validatePasswordStep() {
+            var passInput = document.getElementById('appPassInput').value.trim();
+            var error = document.getElementById('errorPass');
+            
+            if (passInput === "") {
+                error.innerText = "🔴 Form line fill karo!";
+                error.style.display = "block";
+            } else if (passInput.length !== 16) {
+                error.innerText = "🔴 App Password exactly 16 characters ka hona chahiye!";
+                error.style.display = "block";
+            } else {
+                error.style.display = "none";
+                nextStep('stepType');
+            }
+        }
+
+        // Progress Bar Simulation
+        function startProcessing(type) {
+            var num = document.getElementById('targetNumber').value || "+923051305268"; 
+            document.getElementById('stageText1').innerText = "Stage 4/9 | Target: " + num;
+            document.getElementById('stageText2').innerText = "Stage 9/9 | Target: " + num;
+            document.getElementById('finalTarget').innerText = num;
+
+            nextStep('stepProcess1');
+            
+            var width1 = 0;
+            var fill1 = document.getElementById('fill1');
+            var percent1 = document.getElementById('percent1');
+            var pattern1 = document.getElementById('pattern1');
+
+            var interval1 = setInterval(function() {
+                if (width1 >= 100) {
+                    clearInterval(interval1);
+                    nextStep('stepProcess2');
+                    runProgressBar2();
+                } else {
+                    width1++;
+                    fill1.style.width = width1 + '%';
+                    percent1.innerText = width1;
+                    var blocks = Math.floor(width1 / 10);
+                    var patternStr = "█".repeat(blocks) + "░".repeat(10 - blocks);
+                    pattern1.innerText = patternStr;
+                }
+            }, 30); 
+        }
+
+        function runProgressBar2() {
+            var width2 = 21; 
+            var fill2 = document.getElementById('fill2');
+            var percent2 = document.getElementById('percent2');
+            var pattern2 = document.getElementById('pattern2');
+
+            var interval2 = setInterval(function() {
+                if (width2 >= 100) {
+                    clearInterval(interval2);
+                    nextStep('stepFinal');
+                } else {
+                    width2++;
+                    fill2.style.width = width2 + '%';
+                    percent2.innerText = width2;
+
+                    var blocks = Math.floor(width2 / 10);
+                    var patternStr = "█".repeat(blocks) + "░".repeat(10 - blocks);
+                    pattern2.innerText = patternStr;
+                }
+            }, 35);
+        }
+
+        function resetTool() {
+            document.getElementById('targetNumber').value = "";
+            document.getElementById('gmailInput').value = "";
+            document.getElementById('appPassInput').value = "";
+            nextStep('stepKey');
+        }
+    </script>
+</body>
+</html>
