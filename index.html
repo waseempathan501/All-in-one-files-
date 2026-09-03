@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>WASEEM X HACKER</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Orbitron:wght@400;700&family=Space+Grotesk:wght@400;600&family=Cinzel:wght@400;700&family=Inter:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+}
+
+body{
+    font-family:'Syne',sans-serif;
+    background:#000;
+    color:#fff;
+    min-height:100vh;
+}
+
+#bg{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+    pointer-events:none;
+}
+
+.main{
+    position:relative;
+    z-index:10;
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 15px 30px;
+    text-align:center;
+    overflow:hidden;
+}
+
+.neon-title{
+    width:100%;
+    font-size:clamp(1.8rem,6vw,2.7rem);
+    line-height:1.15;
+    color:#ff3131;
+    text-shadow:0 0 10px #ff3131;
+    margin:20px 0 10px;
+    overflow-wrap:anywhere;
+}
+
+.subtitle{
+    opacity:.8;
+    margin-bottom:20px;
+    font-size:.95rem;
+}
+
+.search-box{
+    width:100%;
+    max-width:400px;
+    height:50px;
+    padding:14px 20px;
+    border-radius:60px;
+    border:1px solid #ff3131;
+    background:rgba(0,0,0,.65);
+    color:#fff;
+    margin:20px auto;
+    display:block;
+    outline:none;
+    font-family:inherit;
+    font-size:15px;
+    box-shadow:0 0 8px rgba(255,49,49,.12);
+}
+
+.search-box::placeholder{
+    color:#aaa;
+}
+
+.search-box:focus{
+    box-shadow:0 0 15px rgba(255,49,49,.35);
+}
+
+.grid{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:15px;
+    margin:20px auto;
+    padding:0;
+    align-items:stretch;
+}
+
+.tool-box{
+    width:100%;
+    min-width:0;
+    min-height:145px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:rgba(255,255,255,.05);
+    padding:18px 12px;
+    border-radius:28px;
+    border:1px solid #ff313160;
+    text-decoration:none;
+    color:#fff;
+    transition:transform .2s,border-color .2s,box-shadow .2s;
+    text-align:center;
+}
+
+.tool-box:hover{
+    transform:translateY(-3px);
+    border-color:#ff3131;
+    box-shadow:0 0 15px #ff3131;
+}
+
+.tool-icon{
+    flex:0 0 auto;
+    font-size:2rem;
+    color:#ff3131;
+    margin-bottom:12px;
+    display:block;
+}
+
+.tool-name{
+    width:100%;
+    min-width:0;
+    font-weight:600;
+    font-size:clamp(.82rem,2.7vw,1rem);
+    line-height:1.35;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.dev-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:min(100%,460px);
+    background:#ff3131;
+    color:#000;
+    padding:13px 30px;
+    border-radius:60px;
+    font-weight:bold;
+    margin:30px auto;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.dev-btn:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 18px #ff3131;
+}
+
+.footer{
+    width:100%;
+    text-align:center;
+    padding:25px 10px;
+    color:#aaa;
+    font-size:.75rem;
+    overflow-wrap:anywhere;
+}
+
+#dlg{
+    display:none;
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.95);
+    z-index:10000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.dialog-box{
+    width:100%;
+    max-width:340px;
+    background:#111;
+    border-radius:32px;
+    border:2px solid #ff3131;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(255,49,49,.3);
+}
+
+.dialog-box h2{
+    color:#ff3131;
+    font-size:1.35rem;
+}
+
+.dialog-box p{
+    margin:20px 0;
+    line-height:1.5;
+}
+
+.dialog-btn{
+    width:100%;
+    padding:12px 20px;
+    border-radius:40px;
+    font-family:inherit;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.join-btn{
+    background:#ff3131;
+    border:1px solid #ff3131;
+    color:#000;
+}
+
+.later-btn{
+    margin-top:10px;
+    background:transparent;
+    border:1px solid #ff3131;
+    color:#ff3131;
+}
+
+@media (max-width:420px){
+    .main{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .grid{
+        gap:12px;
+    }
+
+    .tool-box{
+        min-height:140px;
+        padding:16px 9px;
+        border-radius:25px;
+    }
+
+    .tool-icon{
+        font-size:1.8rem;
+    }
+}
+
+@media (max-width:320px){
+    .grid{
+        gap:9px;
+    }
+
+    .tool-box{
+        min-height:130px;
+        padding:14px 7px;
+        border-radius:22px;
+    }
+
+    .tool-name{
+        font-size:.75rem;
+    }
+}
+
+/* ================= PASSWORD PROTECTION PAGE ================= */
+#passwordPage{
+    position:fixed;
+    inset:0;
+    z-index:20000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(6,0,14,.88);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+
+#passwordPage.show{
+    display:flex;
+}
+
+.password-card{
+    width:100%;
+    max-width:645px;
+    padding:58px 56px 54px;
+    border-radius:32px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(22,16,31,.82);
+    box-shadow:0 20px 70px rgba(0,0,0,.55), inset 0 0 35px rgba(0,255,255,.035);
+    text-align:center;
+}
+
+.password-title{
+    margin:0 0 18px;
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1.45rem,5vw,2.45rem);
+    line-height:1.25;
+    font-weight:700;
+    background:linear-gradient(90deg,#0ff,#6e9de8,#ff00a8);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 18px rgba(0,255,255,.14);
+}
+
+.password-subtitle{
+    margin:0 auto 34px;
+    max-width:520px;
+    color:#d7d5e5;
+    font-size:clamp(.95rem,3vw,1.15rem);
+    line-height:1.55;
+}
+
+.password-label{
+    display:block;
+    text-align:left;
+    margin:0 0 10px;
+    color:#d7d5e5;
+    font-size:1rem;
+}
+
+.password-input{
+    width:100%;
+    height:66px;
+    padding:0 26px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.18);
+    outline:none;
+    background:rgba(45,40,52,.78);
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.05rem;
+    box-shadow:inset 0 0 18px rgba(0,0,0,.12);
+}
+
+.password-input::placeholder{
+    color:#77727d;
+}
+
+.password-input:focus{
+    border-color:#00eee2;
+    box-shadow:0 0 0 2px rgba(0,238,226,.08),0 0 18px rgba(0,238,226,.12);
+}
+
+.password-unlock{
+    width:100%;
+    height:70px;
+    margin-top:28px;
+    border:0;
+    border-radius:18px;
+    cursor:pointer;
+    font-family:'Orbitron',sans-serif;
+    font-size:1.25rem;
+    font-weight:700;
+    color:#05040a;
+    background:linear-gradient(90deg,#00f1dc,#8a7bd5,#ff0097);
+    box-shadow:0 8px 24px rgba(255,0,151,.12);
+}
+
+.password-unlock:active{
+    transform:scale(.99);
+}
+
+.password-error{
+    min-height:24px;
+    margin:12px 0 0;
+    color:#ff4d73;
+    font-size:.88rem;
+}
+
+.contact-text{
+    margin:20px 0 12px;
+    color:#d9d5e1;
+    font-size:.9rem;
+    font-weight:600;
+}
+
+.contact-button{
+    width:100%;
+    height:54px;
+    border:1px solid rgba(0,255,255,.35);
+    border-radius:16px;
+    cursor:pointer;
+    background:rgba(0,255,255,.07);
+    color:#00eee2;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1rem;
+    font-weight:700;
+}
+
+.contact-button:hover{
+    background:rgba(0,255,255,.12);
+    box-shadow:0 0 18px rgba(0,255,255,.12);
+}
+
+.password-back{
+    margin-top:14px;
+    border:0;
+    background:transparent;
+    color:#aaa5b3;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.86rem;
+}
+
+@media (max-width:600px){
+    #passwordPage{
+        padding:14px;
+    }
+
+    .password-card{
+        padding:42px 28px 34px;
+        border-radius:28px;
+    }
+
+    .password-input{
+        height:62px;
+    }
+
+    .password-unlock{
+        height:64px;
+        font-size:1.08rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Password protection page -->
+<div id="passwordPage" aria-hidden="true">
+    <div class="password-card">
+        <h1 class="password-title">WASEEM - PRO  HACKER 👑</h1>
+
+        <p class="password-subtitle">
+            Please enter password to unlock this tool
+        </p>
+
+        <label class="password-label" for="toolPassword">Password</label>
+
+        <input
+            id="toolPassword"
+            class="password-input"
+            type="password"
+            placeholder="Password"
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+        <button class="password-unlock" id="unlockButton" type="button">
+            Unlock
+        </button>
+
+        <div id="passwordError" class="password-error"></div>
+
+        <div class="contact-text">CONTACT ME TO GET THE PASSWORD 🔑</div>
+
+        <button class="contact-button" type="button" onclick="contactForPassword()">
+            <i class="fab fa-whatsapp"></i> CONTACT
+        </button>
+
+        <button class="password-back" type="button" onclick="closePasswordPage()">
+            Cancel
+        </button>
+    </div>
+</div>
+
+
+<!-- Join Channel Popup -->
+<div id="dlg" aria-hidden="true">
+    <div class="dialog-box">
+        <h2>🔓 UNLOCK PREMIUM</h2>
+        <p>Join our channel for latest tools</p>
+
+        <button class="dialog-btn join-btn" onclick="joinChannel()">
+            <i class="fab fa-whatsapp"></i> JOIN NOW
+        </button>
+
+        <button class="dialog-btn later-btn" onclick="closeDialog()">
+            LATER
+        </button>
+    </div>
+</div>
+
+<!-- Animated Background -->
+<canvas id="bg"></canvas>
+
+<div class="main">
+
+    <h1 class="neon-title">WASEEM X HACKER</h1>
+    <p class="subtitle">UNION HACKS</p>
+
+    <input
+        type="text"
+        class="search-box"
+        id="search"
+        placeholder="🔍 Search tools..."
+        onkeyup="filterTools()"
+        autocomplete="off"
+    >
+
+    <div class="grid">
+
+        <a class="tool-box" href="https://quran.com/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-crown tool-icon"></i>
+            <div class="tool-name">QURAN PAK</div>
+        </a>
+
+        <a class="tool-box" href="https://youtube-watchtime-by-raja.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">YOUTUBE WATCHTIME</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/n7mwjbx5lvqjgvt/EasyPaisa+to+Bank_3.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">EASYPAISA TO ALL BANK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/xe67xy9qgqulpvv/CREDIT+CARD+GENERATOR_1.0.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">CREDIT CARDS GENERATOR</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/nkps8yjkuxhyfnv/DARKWEB+ACCESS+IN+MOBILE+BY+MRISBRAND.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">DARK WEB ACCESS</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1aR2sF6CkRq30PJBtkusUQ5EuKzDMY3AB" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">CONVERT QUOTES DEMO TO LIVE</div>
+        </a>
+
+        <a class="tool-box" href="https://www.kpexcise.gov.pk/new/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">KPK VEHICLE CHECK</div>
+        </a>
+
+        <a class="tool-box" href="https://vehicleverification.pk/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">SINDH VEHICLE CHECK</div>
+        </a>
+
+        <a class="tool-box" href="https://excise.gos.pk/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">PUNJAB VEHICLE CHECK</div>
+        </a>
+
+        <a class="tool-box" href="https://idcards.pw/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FAKE CNIC MAKER</div>
+        </a>
+
+        <a class="tool-box" href="https://www.webintoapp.com/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">WEB TO APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/h9fonbmc5ugaf9i/base-1.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FAKE TRADING SS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/u4wqk8cmq1sggfv/OWN_AI_CHAT_GPT_V4_TELEGRAM_BOT_MAKING.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">OWN AI MAKING METHOD</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/bkdit2b2ia73hp0/Trading_Signals_Free_By_AbheeBhai_Mods.rar/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FREE TRADING SIGNAL BOT</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/ggd6xnqo4lu2bf0/MAKE_GAMES_PHISING_LINK_IN_FREE_FROM_ABHEEBHAI_MODS.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">GAME PHISHING MAKER</div>
+        </a>
+
+        <a class="tool-box" href="https://uncensored.chat" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ILLEGAL AI (1)</div>
+        </a>
+
+        <a class="tool-box" href="https://uncensored.ai" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ILLEGAL AI (2)</div>
+        </a>
+
+        <a class="tool-box" href="https://avaiter-hack-by-raja.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">AVIATOR HACK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/r6nsozylav0uyqu/xhunter_Modded_Mobile_Hack_%2540InsightX_By_Hamza.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">X-Hunter RAT APK</div>
+        </a>
+
+        <a class="tool-box" href="https://liteapks.com/download/mt-manager-2135" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">MT-MANAGER (VIP)</div>
+        </a>
+
+        <a class="tool-box" href="https://raja-sms-bomber.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">SMS BOMBER</div>
+        </a>
+
+        <a class="tool-box" href="https://raja-mix-bomber.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">WHATSAPP BOMBER</div>
+        </a>
+
+        <a class="tool-box" href="https://amazing-effect-by-raja.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">AMAZING WEBSITE</div>
+        </a>
+
+        <a class="tool-box" href="https://num-info-by-raja.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ANY NUMBER TO INFORMATION</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file_premium/vfsmk9dnxvbwneg/See_private.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">SEE PRIVATE INSTA</div>
+        </a>
+
+        <a class="tool-box" href="https://wa.me/+923123168814" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ALL DIRECT HACKING</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1Z-SjxeB0Vt6bTniwJTltb4tCRXpr7qok" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">WIFI HACK USING TERMUX</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1ZVkWQyb684Pz2d7VeKS6WJ3EE_lEdcr6" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ALL SOCIAL MEDIA HACKING METHOD</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/36kzhdantt1i1x4/WHITE-DEVIL_SPAM_APK_%25F0%259F%2592%2580%25E2%259A%2594_1.2.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">WHATSAPP SPAM</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/qtf5f92y5hxh5hs/%25C6%2592%25C5%2597z_w%25D1%2592%25C4%2581%25C5%25A3%25C5%259F%25C4%2581pp_2.24.16.76.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">WHATSAPP JAMMER</div>
+        </a>
+
+        <a class="tool-box" href="https://pixeldrain.com/u/dvtgs6Ka" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">HOW TO HACK ANY DEVICE AND COMPUTER USING A LINK</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1XHhoyqqwKlgnkqZjGMYYTWTjMygvx2t4" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">TELEGRAM SMS FEE PROBLEM SOLVED</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1ZVkWQyb684Pz2d7VeKS6WJ3EE_lEdcr6" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">ALL SOCIAL MEDIA PHISHING LINKS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/o83fu9y9q3056e5/HOW_TO_BAN_INSTAGRAM_ID_PERMANENT_BAN_BY_MRISBRAND_.7z.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">INSTAGRAM BAN</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/iq0n9n3palba8c8/FACEBOOK-BAN-METHOD-BY_MRISBRAND.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FACEBOOK BAN</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/2einie8zjanp3c2/TIKTOK+VIDEO+REMOVED+BY+MRISBRAND.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">HOW TO REMOVE ANY TIKTOK VIDEO &amp; ADS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/rrnfi1jgaeuxi4l/%25F0%259D%2590%258E%25F0%259D%2590%2593%25F0%259D%2590%258F_%25F0%259D%2590%2587%25F0%259D%2590%2580%25F0%259D%2590%2582%25F0%259D%2590%258A.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">OTP HACK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/ua3grks0dz5h0hh/gallery+crash.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-cog tool-icon"></i>
+            <div class="tool-name">GALLERY CRASH APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/kkk6l40duq1sxg3/WhatsApp_1.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-cog tool-icon"></i>
+            <div class="tool-name">PHONE DEAD VIRUS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/folder/mpqbz6hp9c8eb/D+dos+attack+On+website" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">DDoS ATTACK ANY WEBSITE</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/1RwKVCwSlQ38eMMym4fYMlqFpLA1MV643" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">MAKE UNLIMITED GMAIL WITHOUT NUMBER</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/ws4kaxgmze3z472/FREE+GOOGLE+VEO3+METHOD+BY+MRISBRAND+.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FREE GOOGLE VEO3 METHOD</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/eih6rex1zv9hw0n/HEADSHOT_FILE_BY_SASUKE.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FREE FIRE HEADSHOT FILE</div>
+        </a>
+
+        <a class="tool-box" href="https://sub2unlock.me/cqcVwHg" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FREE FIRE PANEL</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/17lmO2Ea98T6QfPCfsdt1Ed25wXrrvOmr" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">GTA VICE CITY GAME IN MOBILE METHOD</div>
+        </a>
+
+        <a class="tool-box" href="https://teletype.in/@encryptedj/ga_dviNH50O" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">HOW TO UNBAN YOU BANNED NUMBER IN 48 HOURS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/21bljiq1y3n72pe/FACEBOOK+BLUE+TICK+FREE+METHOD+BY+MRISBRAND+.zip/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FACEBOOK BLUE TICK METHOD FOR FREE</div>
+        </a>
+
+        <a class="tool-box" href="https://drive.google.com/drive/folders/16l-lklZjwJcE-pzOano-b3To-uPCKxaC" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">TIKTOK UK &amp; USA ACCOUNT METHOD</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/x8qd0srq8tspy64/JazzCash_9.0.99.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">JAZZCASH BIOMATRIC BYPASS APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/hxd3qczg08l1o6z/EasyPaisa+screenshot+real_3.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">EASYPAISA REAL SCREENSHOT APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/u29u3okyigjprdn/EasyPaisa+History_3.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">EASYPAISA FAKE HISTORY APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/gxnd696kjnldn7n/Jazz_Cash_Screenshot_by_kinghats.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">JAZZCASH REAL SCREENSHOT APK</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/giqvag6hg4e9l3l/%25F0%259D%2597%25AC%25F0%259D%2597%25A7_%25F0%259D%2597%25A7%25F0%259D%259C%25A7%25F0%259D%2597%259F%25F0%259D%2597%2598%2526%25F0%259D%2597%2597%25F0%259D%2597%259C%25F0%259D%2597%25A6_%25F0%259D%2597%2596%25F0%259D%2592%25A2%25F0%259D%2597%25A3%25F0%259D%2597%25AC%25F0%259D%2597%2598%25F0%259D%2597%25A5_%25F0%259D%2597%25A7%25F0%259D%2592%25A2%25F0%259D%2597%2592%25F0%259D%2597%259F_1.0.apk/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">YOUTUBE TITLE AND DESCRIPTION COPY</div>
+        </a>
+
+        <a class="tool-box" href="https://35-powerful-ai-tools.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">AI TOOLS TO BOOST PRODUCTIVITY</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/gna1ub9930w24mu/2999%252B_Font_Pixellab.7z/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">2999+ PIXLLAB FONTS</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/4uilo0jt8s3oart/Clone_Any_Website_Trick_By_AbheBhai.rar/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">CLONE ANY WEBSITE</div>
+        </a>
+
+        <a class="tool-box" href="https://www.mediafire.com/file/kzlkau9yw2joq7m/social-engineering-the-art-of-human-hacking-pola.pdf/file" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt tool-icon"></i>
+            <div class="tool-name">FULL HACKING BOOK FOR FREE</div>
+        </a>
+
+    </div>
+
+    <!-- Main WhatsApp Channel Button -->
+    <a
+        href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="dev-btn"
+    >
+        <i class="fab fa-whatsapp"></i>
+        JOIN CHANNEL
+    </a>
+
+    <div class="footer">DEVELOPED BY WASEEM PRO HACKER</div>
+
+</div>
+
+<script>
+const CHANNEL_URL = "https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S";
+const PASSWORD = "Pakistan100";
+const CONTACT_NUMBER = "923142413307";
+
+let pendingToolUrl = "";
+
+function joinChannel(){
+    window.open(CHANNEL_URL, "_blank", "noopener,noreferrer");
+    closeDialog();
+}
+
+function closeDialog(){
+    const dlg = document.getElementById("dlg");
+    dlg.style.display = "none";
+    dlg.setAttribute("aria-hidden", "true");
+    localStorage.setItem("ds", "1");
+}
+
+function contactForPassword(){
+    const message = encodeURIComponent(
+        "Assalamualaikum, mujhe website tool ka password chahiye."
+    );
+    window.open(
+        "https://wa.me/" + CONTACT_NUMBER + "?text=" + message,
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+function openPasswordPage(url){
+    pendingToolUrl = url;
+
+    const page = document.getElementById("passwordPage");
+    const input = document.getElementById("toolPassword");
+    const error = document.getElementById("passwordError");
+
+    error.textContent = "";
+    input.value = "";
+    page.classList.add("show");
+    page.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => input.focus(), 50);
+}
+
+function closePasswordPage(){
+    const page = document.getElementById("passwordPage");
+    page.classList.remove("show");
+    page.setAttribute("aria-hidden", "true");
+    pendingToolUrl = "";
+}
+
+function unlockTool(){
+    const input = document.getElementById("toolPassword");
+    const error = document.getElementById("passwordError");
+
+    if(input.value === PASSWORD){
+        const url = pendingToolUrl;
+
+        error.textContent = "";
+        closePasswordPage();
+
+        if(url){
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+    }else{
+        error.textContent = "Wrong password. Please try again.";
+        input.select();
+    }
+}
+
+function filterTools(){
+    const q = document.getElementById("search").value.toLowerCase().trim();
+
+    document.querySelectorAll(".tool-box").forEach(box => {
+        const text = box.innerText.toLowerCase();
+        box.style.display = text.includes(q) ? "flex" : "none";
+    });
+}
+
+/* Protect every tool card without changing its original destination. */
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".tool-box").forEach(box => {
+        const originalUrl = box.getAttribute("href");
+
+        box.addEventListener("click", event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if(originalUrl){
+                openPasswordPage(originalUrl);
+            }
+        });
+    });
+
+    document.getElementById("unlockButton").addEventListener("click", unlockTool);
+
+    document.getElementById("toolPassword").addEventListener("keydown", event => {
+        if(event.key === "Enter"){
+            unlockTool();
+        }
+    });
+
+    document.getElementById("passwordPage").addEventListener("click", event => {
+        if(event.target.id === "passwordPage"){
+            closePasswordPage();
+        }
+    });
+});
+
+/* Popup: appears once per browser/device */
+window.addEventListener("load", () => {
+    if(!localStorage.getItem("ds")){
+        setTimeout(() => {
+            const dlg = document.getElementById("dlg");
+            dlg.style.display = "flex";
+            dlg.setAttribute("aria-hidden", "false");
+        }, 1800);
+    }
+});
+
+/* Animated red background */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+
+function resizeCanvas(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    stars = Array.from({length:180}, () => ({
+        x:Math.random() * window.innerWidth,
+        y:Math.random() * window.innerHeight,
+        z:Math.random() * window.innerWidth
+    }));
+}
+
+function animate(){
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    ctx.fillStyle = "rgba(0,0,0,0.12)";
+    ctx.fillRect(0,0,w,h);
+
+    stars.forEach(s => {
+        s.z -= 2;
+
+        if(s.z <= 1){
+            s.z = w;
+            s.x = Math.random() * w;
+            s.y = Math.random() * h;
+        }
+
+        const k = 128 / s.z;
+        const px = (s.x - w / 2) * k + w / 2;
+        const py = (s.y - h / 2) * k + h / 2;
+
+        if(px >= 0 && px <= w && py >= 0 && py <= h){
+            ctx.fillStyle = "#ff3131";
+            ctx.fillRect(px,py,2,2);
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+animate();
+</script>
+</body>
+</html>
