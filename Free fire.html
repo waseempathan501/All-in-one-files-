@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WASEEMDEVELOPER • FF INTEL</title>
+<style>
+:root{
+  --bg:#070912;--panel:#0d1220;--panel2:#111827;--line:#202b3d;
+  --cyan:#38e8ff;--violet:#9d6cff;--text:#eef4ff;--muted:#77839b;
+  --green:#4fffa8;--red:#ff5c7a;--gold:#ffd166;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;background:
+  radial-gradient(circle at 15% 5%,rgba(56,232,255,.10),transparent 32%),
+  radial-gradient(circle at 90% 75%,rgba(157,108,255,.11),transparent 34%),var(--bg);
+  color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;padding:18px;
+}
+.app{max-width:1050px;margin:auto}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 0 22px;border-bottom:1px solid var(--line)
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));color:#07101a;
+  font-size:22px;font-weight:900;box-shadow:0 8px 30px rgba(56,232,255,.15)
+}
+.brand h1{font-size:18px;letter-spacing:1.5px}
+.brand small{display:block;color:var(--muted);margin-top:3px;font-size:10px;letter-spacing:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.action{
+  color:var(--text);text-decoration:none;border:1px solid var(--line);
+  background:#0d1422;padding:9px 13px;border-radius:10px;font-size:11px;
+  font-weight:800;letter-spacing:.8px
+}
+.action:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.hero{
+  display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:18px
+}
+.hero-main,.hero-side,.search-card,.card{
+  background:linear-gradient(145deg,rgba(17,24,39,.96),rgba(9,14,25,.96));
+  border:1px solid var(--line);border-radius:18px
+}
+.hero-main{padding:26px}
+.eyebrow{color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:3px}
+.hero h2{font-size:clamp(27px,5vw,45px);line-height:1.05;margin:10px 0}
+.hero h2 span{color:var(--violet)}
+.hero p{color:var(--muted);font-size:13px;line-height:1.6;max-width:600px}
+.hero-side{padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.online{display:flex;align-items:center;gap:8px;color:var(--green);font-size:11px;font-weight:800}
+.online i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green)}
+.stat{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.stat b{font-size:25px} .stat span{display:block;color:var(--muted);font-size:10px;margin-top:3px;letter-spacing:1px}
+
+.search-card{margin-top:16px;padding:14px;display:flex;gap:10px}
+.search-card input{
+  flex:1;min-width:0;background:#080d18;border:1px solid #27344a;color:#fff;
+  border-radius:12px;padding:15px;font-size:15px;outline:none
+}
+.search-card input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,232,255,.08)}
+.scan{
+  border:0;border-radius:12px;padding:0 24px;background:linear-gradient(135deg,var(--cyan),var(--violet));
+  color:#07101a;font-weight:950;letter-spacing:1px;cursor:pointer
+}
+.scan:disabled{opacity:.5;cursor:not-allowed}
+
+#result{margin-top:16px}
+.loading{
+  border:1px solid var(--line);border-radius:16px;padding:35px;text-align:center;
+  color:var(--cyan);background:var(--panel);font-weight:800;letter-spacing:2px
+}
+.error{
+  padding:18px;border-radius:14px;border:1px solid rgba(255,92,122,.35);
+  background:rgba(255,92,122,.08);color:#ff8ca2
+}
+.overview{
+  display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-bottom:14px
+}
+.player,.mini{padding:20px}
+.player-top{display:flex;align-items:center;gap:15px}
+.avatar{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#18263b,#1a1430);display:grid;place-items:center;font-size:30px;border:1px solid #2c3d56}
+.player h3{font-size:21px} .uid{color:var(--muted);font-size:11px;margin-top:5px}
+.badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.badge{padding:6px 9px;border-radius:8px;background:#111b2c;border:1px solid #25344a;color:var(--cyan);font-size:10px;font-weight:800}
+.mini strong{font-size:28px;color:var(--gold)} .mini p{color:var(--muted);font-size:10px;margin-top:4px}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{padding:18px}
+.card.full{grid-column:1/-1}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.card-head h4{font-size:11px;letter-spacing:2px;color:#dfe8f8}
+.card-head span{font-size:16px}
+.row{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.045);font-size:12px}
+.row:last-child{border-bottom:0}
+.label{color:var(--muted)} .value{color:var(--text);font-weight:700;text-align:right;word-break:break-word;max-width:62%}
+.footer{text-align:center;color:#4e5b72;font-size:10px;letter-spacing:1.5px;padding:22px 0}
+@media(max-width:760px){
+  body{padding:12px} .hero,.overview,.grid{grid-template-columns:1fr}
+  .card.full{grid-column:auto} .search-card{flex-direction:column}
+  .scan{height:48px} .topbar{align-items:flex-start} .actions{width:100%}
+  .hero-main{padding:21px} .value{max-width:58%}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">⬡</div>
+    <div><h1>WASEEM</h1><small>FREE FIRE INTELLIGENCE PANEL</small></div>
+  </div>
+  <div class="actions">
+    <a class="action" href="https://wa.me/+923142413307" target="_blank" rel="noopener">⚡ MORE TOOLS</a>
+    <a class="action" href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" target="_blank" rel="noopener">📲 CHANNEL</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-main">
+    <div class="eyebrow">PLAYER LOOKUP / V2.0</div>
+    <h2>Free Fire <span>Player Intel</span></h2>
+    <p>Enter a public player UID to retrieve the available profile, activity, pet and guild information.</p>
+  </div>
+  <div class="hero-side">
+    <div class="online"><i></i> SYSTEM ONLINE</div>
+    <div class="stat"><b>UID</b><span>PLAYER IDENTIFIER</span></div>
+  </div>
+</section>
+
+<div class="search-card">
+  <input id="uidInput" inputmode="numeric" autocomplete="off" placeholder="Enter Free Fire UID..." autofocus>
+  <button class="scan" id="searchBtn">SCAN PLAYER</button>
+</div>
+
+<div id="result"></div>
+
+<footer class="footer">WASEEMDEVELOPER • FOR EDUCATIONAL RESEARCH ONLY</footer>
+</div>
+
+<script>
+(() => {
+"use strict";
+const API_URL = '/api/player?uid=';
+const result = document.getElementById("result");
+const input = document.getElementById("uidInput");
+const button = document.getElementById("searchBtn");
+
+const esc = v => {
+  if(v === undefined || v === null || v === "") return "N/A";
+  return String(v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+};
+const val = v => esc(v);
+
+function row(label,value) {
+  return `<div class="row"><span class="label">${esc(label)}</span><span class="value">${val(value)}</span></div>`;
+}
+function card(icon,title,rows,full=false) {
+  return `<section class="card ${full?"full":""}">
+    <div class="card-head"><h4>${esc(title)}</h4><span>${icon}</span></div>
+    ${rows.map(r=>row(r[0],r[1])).join("")}
+  </section>`;
+}
+
+function render(data) {
+  const b=data.basicInfo||{}, s=data.socialInfo||{}, p=data.profileInfo||{};
+  const pet=data.petInfo||{}, clan=data.clanBasicInfo||{};
+  const captain=data.captainBasicInfo||{}, credit=data.creditScoreInfo||{};
+
+  result.innerHTML = `
+    <div class="overview">
+      <section class="card player">
+        <div class="player-top">
+          <div class="avatar">👤</div>
+          <div><h3>${val(b.nickname)}</h3><div class="uid">UID: ${val(b.accountId)}</div></div>
+        </div>
+        <div class="badges">
+          <span class="badge">LVL ${val(b.level)}</span>
+          <span class="badge">${val(b.region)}</span>
+          <span class="badge">${val(b.rankingName)}</span>
+        </div>
+      </section>
+      <section class="card mini">
+        <strong>${val(credit.creditScore)}</strong>
+        <p>HONOR / CREDIT SCORE</p>
+        <div class="stat"><strong>${val(b.liked)}</strong><span>LIKES</span></div>
+      </section>
+    </div>
+
+    <div class="grid">
+      ${card("◈","BASIC INFORMATION",[
+        ["Prime Level",b.primeLevel?.level],["Name",b.nickname],["UID",b.accountId],
+        ["Level",b.level !== undefined ? `${b.level} (${b.exp ?? "N/A"} EXP)` : "N/A"],
+        ["Region",b.region],["Likes",b.liked],["Honor Score",credit.creditScore],
+        ["Title",captain.titleName],["Signature",s.signature]
+      ])}
+
+      ${card("◉","ACTIVITY",[
+        ["Version",b.releaseVersion],["BP Badges",b.badgeCnt],["BR Rank",b.rankingName],
+        ["CS Rank",b.csRankingName],["Gender",s.gender],["Rank Display",s.rankShow],
+        ["Show BR Rank",b.showBrRank],["Show CS Rank",b.showCsRank]
+      ])}
+
+      ${card("◇","PROFILE",[
+        ["Avatar",p.avatarName],["Banner",b.bannerName],["Pin",b.pinName],
+        ["Skills",p.equippedSkillsNames],["Language",s.language],
+        ["Equipped Gun",b.equippedGunName],["Animation",b.equippedAnimationName]
+      ])}
+
+      ${card("◆","PET DETAILS",[
+        ["Pet Name",pet.petName],["Skin",pet.skinName],["EXP",pet.exp],["Level",pet.level]
+      ])}
+
+      ${card("▣","GUILD INFORMATION",[
+        ["Guild Name",clan.clanName],["Guild ID",clan.clanId],
+        ["Guild Level",clan.clanLevel],["Members",clan.memberNum],["Leader",captain.nickname]
+      ],true)}
+    </div>`;
+}
+
+async function fetchPlayer(uid) {
+  if(!/^\d{5,20}$/.test(uid)) {
+    result.innerHTML='<div class="error">⚠️ Please enter a valid UID (5–20 digits).</div>';
+    return;
+  }
+  button.disabled=true;
+  result.innerHTML='<div class="loading">◌ SCANNING PLAYER DATA...</div>';
+  try {
+    const response=await fetch(API_URL + encodeURIComponent(uid), {
+      method:"GET",headers:{"Accept":"application/json"},cache:"no-store"
+    });
+    const data=await response.json().catch(()=>null);
+    if(!response.ok) throw new Error(data?.error || `API responded with ${response.status}`);
+    if(!data || !data.basicInfo) throw new Error("Invalid player data received.");
+    render(data);
+  } catch(e) {
+    result.innerHTML=`<div class="error">⚠️ CONNECTION FAILED<br><small>${esc(e.message)}</small></div>`;
+  } finally {
+    button.disabled=false;
+  }
+}          
+button.addEventListener("click",()=>fetchPlayer(input.value.trim()));
+input.addEventListener("keydown",e=>{if(e.key==="Enter") button.click();});
+})();
+</script>
+</body>
+</html>
