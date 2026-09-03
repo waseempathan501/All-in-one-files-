@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WASEEM HACKER — Link Locker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#080a1a;
+    --bg-panel:#0f1330;
+    --bg-panel-2:#151a3d;
+    --cyan:#2ee6ff;
+    --violet:#a35bff;
+    --amber:#ffb020;
+    --text:#dfe3ff;
+    --text-dim:#7c82b8;
+    --danger:#ff3d5e;
+    --ok:#3dffb0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:var(--bg-deep);
+    color:var(--text);
+    font-family:'Rajdhani',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .wrap{width:100%;}
+
+  /* ---------- Ambient background: hex grid + scanline + vignette ---------- */
+  .bg-hex{
+    position:fixed; inset:0; z-index:0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 0 L56 25 L56 75 L28 100 L0 75 L0 25 Z' fill='none' stroke='%23222a5e' stroke-width='1'/%3E%3C/svg%3E");
+    background-size:56px 100px;
+    opacity:.35;
+    -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 90%);
+            mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 90%);
+  }
+  .bg-vignette{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse 90% 80% at 50% 0%, rgba(163,91,255,.14), transparent 60%),
+               radial-gradient(ellipse 100% 60% at 50% 100%, rgba(46,230,255,.10), transparent 60%),
+               var(--bg-deep);
+    mix-blend-mode:normal;
+  }
+  .bg-scan{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 2px, transparent 3px);
+    opacity:.5;
+  }
+  .bg-scanline-move{
+    position:fixed; left:0; right:0; height:120px; z-index:1; pointer-events:none;
+    background:linear-gradient(to bottom, transparent, rgba(46,230,255,.05), transparent);
+    animation:scanmove 9s linear infinite;
+  }
+  @keyframes scanmove{
+    0%{top:-120px;} 100%{top:100vh;}
+  }
+
+  .wrap{position:relative; z-index:2; max-width:900px; margin:0 auto; padding:22px 20px 16px;}
+
+  /* ---------- Header ---------- */
+  header{text-align:center; margin-bottom:4px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:.3em;
+    font-size:.6rem;
+    color:var(--cyan);
+    opacity:.75;
+  }
+  .eyebrow::before{content:"// ";color:var(--violet);}
+  h1.glitch{
+    font-family:'Orbitron',sans-serif;
+    font-weight:900;
+    font-size:clamp(1.4rem, 4.2vw, 2.1rem);
+    letter-spacing:.05em;
+    margin:6px 0 2px;
+    position:relative;
+    color:#f2f4ff;
+    text-shadow:0 0 14px rgba(46,230,255,.35), 0 0 30px rgba(163,91,255,.2);
+  }
+  h1.glitch::before, h1.glitch::after{
+    content:'WASEEM HACKER';
+    position:absolute; left:0; top:0; width:100%;
+    overflow:hidden;
+  }
+  h1.glitch::before{
+    color:var(--cyan);
+    animation:glitchTop 5.5s infinite ease-in-out;
+    clip-path:inset(0 0 60% 0);
+  }
+  h1.glitch::after{
+    color:var(--violet);
+    animation:glitchBot 5.5s infinite ease-in-out;
+    clip-path:inset(60% 0 0 0);
+  }
+  @keyframes glitchTop{
+    0%,88%,100%{transform:translate(0,0); opacity:0;}
+    89%{transform:translate(-3px,-1px); opacity:.8;}
+    91%{transform:translate(2px,1px); opacity:.8;}
+    93%{transform:translate(-1px,0); opacity:0;}
+  }
+  @keyframes glitchBot{
+    0%,90%,100%{transform:translate(0,0); opacity:0;}
+    91%{transform:translate(3px,1px); opacity:.8;}
+    93%{transform:translate(-2px,-1px); opacity:.8;}
+    95%{transform:translate(1px,0); opacity:0;}
+  }
+  .subline{
+    font-size:.78rem; color:var(--text-dim); letter-spacing:.04em;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .subline .cursor{
+    display:inline-block; width:7px; height:12px; background:var(--cyan);
+    margin-left:4px; vertical-align:-2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- Twin circle showcase ---------- */
+  .orbs{
+    display:flex; justify-content:center; align-items:center;
+    margin:14px 0 18px;
+  }
+  .orb-col{display:flex; flex-direction:column; align-items:center; gap:8px;}
+  .orb-label{
+    font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.22em;
+    color:var(--text-dim);
+  }
+
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes pulse{
+    0%,100%{transform:scale(1); opacity:.95;}
+    50%{transform:scale(1.07); opacity:1;}
+  }
+
+  /* Profile circle: rotating frame, STATIC photo (photo itself never rotates) */
+  .photo-circle{
+    position:relative; width:118px; height:118px; border-radius:50%;
+  }
+  .photo-circle::before{
+    content:''; position:absolute; inset:-9px; border-radius:50%;
+    background:conic-gradient(from 90deg, var(--violet), var(--cyan), var(--amber), var(--violet));
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+            mask:radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+    animation:spin 6s linear infinite;
+    filter:drop-shadow(0 0 12px rgba(163,91,255,.45));
+  }
+  .photo-circle .halo{
+    position:absolute; inset:-18px; border-radius:50%;
+    box-shadow:0 0 45px rgba(46,230,255,.18);
+    animation:pulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .photo-circle img{
+    position:absolute; inset:0; width:100%; height:100%;
+    border-radius:50%; object-fit:cover; z-index:2;
+    border:2px solid #0f1330;
+    /* intentionally NO animation/transform here — the photo stays perfectly still */
+  }
+
+  /* ---------- Panel / card ---------- */
+  .panel{
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    border:1px solid rgba(163,91,255,.25);
+    border-radius:16px;
+    padding:clamp(16px,3vw,26px);
+    box-shadow:0 0 0 1px rgba(46,230,255,.04), 0 20px 60px rgba(0,0,0,.45);
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+    opacity:.8;
+  }
+  .panel-head{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
+  .panel-head .dot{width:8px; height:8px; border-radius:50%; background:var(--danger);}
+  .panel-head .dot:nth-child(2){background:var(--amber);}
+  .panel-head .dot:nth-child(3){background:var(--ok);}
+  .panel-title{
+    font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--text-dim);
+    letter-spacing:.15em; margin-left:6px;
+  }
+  h2.section-title{
+    font-family:'Orbitron',sans-serif; font-size:.95rem; letter-spacing:.04em;
+    margin:4px 0 3px; color:#f2f4ff;
+  }
+  .section-sub{color:var(--text-dim); font-size:.8rem; margin-bottom:12px;}
+
+  .field{margin-bottom:10px;}
+  .field label{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:.65rem;
+    letter-spacing:.1em; color:var(--cyan); margin-bottom:4px;
+  }
+  .field input{
+    width:100%; padding:10px 12px; border-radius:9px;
+    background:#0a0d24; border:1px solid rgba(124,130,184,.35);
+    color:var(--text); font-family:'Rajdhani',sans-serif; font-size:1rem;
+    outline:none; transition:border-color .2s, box-shadow .2s;
+  }
+  .field input:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(46,230,255,.12);
+  }
+  .field input::placeholder{color:#4d5384;}
+
+  .btn{
+    appearance:none; border:none; cursor:pointer;
+    font-family:'Orbitron',sans-serif; font-weight:700; font-size:.85rem;
+    letter-spacing:.08em; text-transform:uppercase;
+    padding:11px 20px; border-radius:9px; color:#04070f;
+    background:linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow:0 6px 24px rgba(46,230,255,.25);
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    width:100%;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(163,91,255,.35); filter:brightness(1.06);}
+  .btn:active{transform:translateY(0);}
+  .btn.ghost{
+    background:transparent; color:var(--cyan);
+    border:1px solid rgba(46,230,255,.4); box-shadow:none;
+  }
+  .btn.ghost:hover{background:rgba(46,230,255,.08); box-shadow:none;}
+
+  .output{
+    margin-top:14px; display:none;
+  }
+  .output.show{display:block; animation:reveal .4s ease;}
+  @keyframes reveal{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .output label{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:.72rem;
+    letter-spacing:.12em; color:var(--ok); margin-bottom:6px;
+  }
+  .output-row{display:flex; gap:10px;}
+  .output-row input{
+    flex:1; font-family:'JetBrains Mono',monospace; font-size:.85rem;
+    background:#070a1c; border:1px solid rgba(61,255,176,.3); color:var(--ok);
+    padding:12px 14px; border-radius:10px;
+  }
+  .output-row button{
+    flex-shrink:0; padding:0 18px; border-radius:10px; border:1px solid rgba(61,255,176,.4);
+    background:rgba(61,255,176,.08); color:var(--ok); font-family:'JetBrains Mono',monospace;
+    font-size:.78rem; letter-spacing:.08em; cursor:pointer; transition:background .15s;
+  }
+  .output-row button:hover{background:rgba(61,255,176,.18);}
+  .hint{font-size:.82rem; color:var(--text-dim); margin-top:10px; line-height:1.5;}
+  .hint code{color:var(--violet); background:rgba(163,91,255,.1); padding:1px 6px; border-radius:4px;}
+
+  /* ---------- Unlock overlay ---------- */
+  .unlock-screen{
+    position:fixed; inset:0; z-index:50;
+    background:radial-gradient(ellipse 90% 70% at 50% 20%, rgba(163,91,255,.12), transparent 60%), var(--bg-deep);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .unlock-card{
+    width:100%; max-width:420px; text-align:center;
+  }
+  .lock-icon{
+    width:70px; height:70px; margin:0 auto 18px; position:relative;
+  }
+  .lock-icon .ring{
+    position:absolute; inset:0; border-radius:50%;
+    background:conic-gradient(from 0deg, var(--cyan), var(--violet), var(--cyan));
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    animation:spin 4s linear infinite;
+  }
+  .lock-icon .glyph{
+    position:absolute; inset:14px; display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem;
+  }
+  .unlock-title{font-family:'Orbitron',sans-serif; font-size:1.3rem; margin:0 0 6px; letter-spacing:.05em;}
+  .unlock-sub{color:var(--text-dim); font-size:.88rem; margin-bottom:22px; font-family:'JetBrains Mono',monospace;}
+  .shake{animation:shake .4s ease;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-2px);}
+    20%,80%{transform:translateX(4px);}
+    30%,50%,70%{transform:translateX(-8px);}
+    40%,60%{transform:translateX(8px);}
+  }
+  .msg{margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; min-height:1.2em;}
+  .msg.err{color:var(--danger);}
+  .msg.ok{color:var(--ok);}
+
+  footer{
+    text-align:center; margin-top:16px; padding:10px 0 4px;
+    font-family:'Orbitron',sans-serif; font-size:.68rem; letter-spacing:.13em;
+    color:var(--text-dim);
+  }
+  footer span{color:var(--cyan);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-vignette"></div>
+<div class="bg-hex"></div>
+<div class="bg-scan"></div>
+<div class="bg-scanline-move"></div>
+
+<!-- ================= MAIN GENERATOR VIEW ================= -->
+<div class="wrap" id="mainView">
+  <header>
+    <div class="eyebrow">SECURE LINK PROTOCOL</div>
+    <h1 class="glitch">WASEEM HACKER</h1>
+    <div class="subline">initializing link-locker module<span class="cursor"></span></div>
+  </header>
+
+  <div class="orbs">
+    <div class="orb-col">
+      <div class="photo-circle">
+        <div class="halo"></div>
+        <img src="https://raw.githubusercontent.com/waseempathan501/Photo-link-/refs/heads/main/IMG-20260625-WA0003.jpg" alt="Waseem Khan">
+      </div>
+      <div class="orb-label">OPERATOR // WASEEM</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="panel-title">link_locker.exe</span>
+    </div>
+    <h2 class="section-title">🔒 Lock Your Link</h2>
+    <p class="section-sub">Apni website ka link daalein, ek password set karein, aur ek password-protected copy link generate karein.</p>
+
+    <div class="field">
+      <label>WEBSITE LINK</label>
+      <input type="text" id="urlInput" placeholder="https://example.com">
+    </div>
+    <div class="field">
+      <label>SET PASSWORD</label>
+      <input type="password" id="passInput" placeholder="Apna password set karein">
+    </div>
+    <button class="btn" id="generateBtn">⚡ Generate Locked Link</button>
+
+    <div class="output" id="outputBox">
+      <label>YOUR LOCKED LINK</label>
+      <div class="output-row">
+        <input type="text" id="lockedLinkOut" readonly>
+        <button id="copyBtn">COPY</button>
+      </div>
+      <p class="hint">Ye link share karein — isay kholne wale se pehle <code>PASSWORD</code> maanga jayega. Sirf sahi password se hi asli website open hogi.</p>
+    </div>
+  </div>
+
+  <footer>DEVELOPED BY <span>WASEEM KHAN</span></footer>
+</div>
+
+<!-- ================= UNLOCK VIEW (shown when a locked link is opened) ================= -->
+<div class="unlock-screen" id="unlockView" style="display:none;">
+  <div class="unlock-card">
+    <div class="lock-icon"><div class="ring"></div><div class="glyph">🔒</div></div>
+    <h2 class="unlock-title">PROTECTED LINK</h2>
+    <div class="unlock-sub">// enter password to continue</div>
+
+    <div class="field" style="text-align:left;">
+      <input type="password" id="unlockPass" placeholder="Password daalein">
+    </div>
+    <button class="btn" id="unlockBtn">🔓 Unlock</button>
+    <div class="msg" id="unlockMsg"></div>
+    <br>
+    <button class="btn ghost" id="backBtn">← Back to Link Locker</button>
+  </div>
+</div>
+
+<script>
+  // ---- tiny non-cryptographic hash, just to compare passwords locally ----
+  function simpleHash(str){
+    let h = 0;
+    for(let i=0;i<str.length;i++){
+      h = (Math.imul(31,h) + str.charCodeAt(i)) | 0;
+    }
+    return (h>>>0).toString(16);
+  }
+  function b64encode(str){ return btoa(unescape(encodeURIComponent(str))); }
+  function b64decode(str){ return decodeURIComponent(escape(atob(str))); }
+
+  const mainView = document.getElementById('mainView');
+  const unlockView = document.getElementById('unlockView');
+
+  function showUnlockView(){
+    mainView.style.display = 'none';
+    unlockView.style.display = 'flex';
+  }
+  function showMainView(){
+    unlockView.style.display = 'none';
+    mainView.style.display = 'block';
+    history.replaceState(null, '', location.pathname);
+  }
+
+  // ---- Generator logic ----
+  document.getElementById('generateBtn').addEventListener('click', () => {
+    let url = document.getElementById('urlInput').value.trim();
+    const pass = document.getElementById('passInput').value;
+
+    if(!url){ alert('Pehle website ka link daalein.'); return; }
+    if(!pass){ alert('Password set karein.'); return; }
+    if(!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+    const payload = JSON.stringify({ u:url, h:simpleHash(pass) });
+    const encoded = b64encode(payload);
+    const lockedLink = location.origin + location.pathname + '#lock=' + encoded;
+
+    const outBox = document.getElementById('outputBox');
+    const outInput = document.getElementById('lockedLinkOut');
+    outInput.value = lockedLink;
+    outBox.classList.add('show');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    const outInput = document.getElementById('lockedLinkOut');
+    outInput.select();
+    navigator.clipboard.writeText(outInput.value).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const old = btn.textContent;
+      btn.textContent = 'COPIED ✓';
+      setTimeout(() => btn.textContent = old, 1500);
+    });
+  });
+
+  // ---- Unlock logic ----
+  let pendingUrl = null, pendingHash = null;
+
+  function tryLoadFromHash(){
+    const hash = location.hash;
+    if(hash.startsWith('#lock=')){
+      try{
+        const encoded = hash.substring(6);
+        const data = JSON.parse(b64decode(decodeURIComponent(encoded)));
+        pendingUrl = data.u;
+        pendingHash = data.h;
+        showUnlockView();
+      }catch(e){
+        pendingUrl = null; pendingHash = null;
+        showMainView();
+      }
+    } else {
+      showMainView();
+    }
+  }
+
+  document.getElementById('unlockBtn').addEventListener('click', () => {
+    const entered = document.getElementById('unlockPass').value;
+    const msg = document.getElementById('unlockMsg');
+    if(!pendingHash){ return; }
+
+    if(simpleHash(entered) === pendingHash){
+      msg.textContent = 'ACCESS GRANTED — redirecting...';
+      msg.className = 'msg ok';
+      setTimeout(() => { window.location.href = pendingUrl; }, 700);
+    } else {
+      msg.textContent = 'ACCESS DENIED — galat password.';
+      msg.className = 'msg err';
+      const card = document.querySelector('.unlock-card');
+      card.classList.remove('shake');
+      void card.offsetWidth;
+      card.classList.add('shake');
+    }
+  });
+
+  document.getElementById('unlockPass').addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') document.getElementById('unlockBtn').click();
+  });
+
+  document.getElementById('backBtn').addEventListener('click', showMainView);
+
+  window.addEventListener('hashchange', tryLoadFromHash);
+  tryLoadFromHash();
+</script>
+
+</body>
+</html>
