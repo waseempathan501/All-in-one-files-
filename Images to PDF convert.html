@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASEEM ⊗ HACKER - VIP IMG TO PDF</title>
+    <!-- JSPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0d0d11;
+            --primary-red: #ff003c;
+            --accent-cyan: #00f0ff;
+            --text-color: #ffffff;
+            --text-dim: #a0a0ab;
+            --border-glow: 0 0 15px rgba(255, 0, 60, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(255, 0, 60, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.1), transparent 40%);
+        }
+
+        /* VIP Header */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* Container Card */
+        .container {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: var(--border-glow);
+            margin-bottom: 25px;
+        }
+
+        /* Upload Area */
+        .upload-box {
+            border: 2px dashed var(--primary-red);
+            border-radius: 8px;
+            padding: 30px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 0, 60, 0.02);
+            margin-bottom: 20px;
+        }
+
+        .upload-box:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .upload-box i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .upload-box p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* Preview Grid */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .preview-item {
+            position: relative;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-convert {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+
+        .btn-convert:hover {
+            background: #d40032;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.8);
+        }
+
+        .btn-clear {
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .btn-clear:hover {
+            background: #333;
+        }
+
+        /* History Section */
+        .history-section {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .history-section h2 {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .history-list {
+            list-style: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #222;
+        }
+
+        .history-item span {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px 8px;
+        }
+
+        .icon-btn:hover {
+            color: #fff;
+        }
+
+        /* Floating Dev Button */
+        .dev-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.6);
+            text-decoration: none;
+            font-size: 1.8rem;
+            z-index: 99;
+            transition: transform 0.2s;
+        }
+
+        .dev-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-red);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--border-glow);
+            position: relative;
+        }
+
+        .modal h3 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .modal p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            background: #25d366;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-dim);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+            border-color: #666;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+<style>
+body{background:radial-gradient(circle at 10% 0%,rgba(37,99,235,.22),transparent 28%),radial-gradient(circle at 90% 10%,rgba(6,182,212,.16),transparent 25%),linear-gradient(135deg,#020617,#081526 50%,#020617)!important;}
+.developer-footer{text-align:center;padding:30px 15px;color:#cbd5e1;font-weight:800;letter-spacing:2px;font-size:15px}
+.developer-footer:before{content:"";display:block;width:180px;max-width:45%;height:1px;margin:0 auto 16px;background:linear-gradient(90deg,transparent,#38bdf8,transparent)}
+</style></head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>𝙒𝘼𝙎𝙀𝙀𝙈 ⊗ 𝙃𝘼𝘾𝙆𝙀𝙍</h1>
+        <p>VIP PREMIUM IMG TO PDF CONVERTER</p>
+    </div>
+
+    <!-- Main Converter -->
+    <div class="container">
+        <div class="upload-box" onclick="document.getElementById('file-input').click()">
+            <i class="fa-solid fa-file-circle-plus"></i>
+            <p>Click or Drag Images Here to Upload</p>
+            <input type="file" id="file-input" accept="image/*" multiple onchange="handleFiles(this.files)">
+        </div>
+
+        <div class="preview-grid" id="preview-grid"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-convert" onclick="convertToPDF()">
+                <i class="fa-solid fa-file-pdf"></i> Convert to PDF
+            </button>
+            <button class="btn btn-clear" onclick="clearImages()">
+                <i class="fa-solid fa-trash"></i> Clear
+            </button>
+        </div>
+    </div>
+
+    <!-- Conversion History -->
+    <div class="history-section">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent History</h2>
+        <ul class="history-list" id="history-list">
+            <!-- Dynamic Items -->
+        </ul>
+    </div>
+
+    <!-- Floating Dev Button (WhatsApp Direct) -->
+    <a href="https://wa.me/923142413307" class="dev-btn" target="_blank" title="Contact Developer">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Join Channel Popup Modal -->
+    <div class="modal-overlay" id="wp-modal">
+        <div class="modal">
+            <h3>JOIN VIP CHANNEL</h3>
+            <p>Get exclusive tools, updates, and premium VIP hacks directly on WhatsApp.</p>
+            <a href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" class="modal-btn" target="_blank" onclick="closeModal()">
+                <i class="fa-brands fa-whatsapp"></i> JOIN NOW
+            </a>
+            <button class="close-modal" onclick="closeModal()">Close / Skip</button>
+        </div>
+    </div>
+
+    <script>
+const { jsPDF } = window.jspdf;
+let selectedFiles = [];
+const HISTORY_KEY = 'roman_pdf_history_fixed';
+let pdfHistory = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+const DB_NAME = 'roman_pdf_files_fixed', STORE = 'files';
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,1);
+    req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE); };
+    req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
+  });
+}
+async function putPDF(id,blob){
+  const db=await openDB();
+  return new Promise((resolve,reject)=>{
+    const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(blob,id);
+    r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error);
+  });
+}
+async function getPDF(id){
+  const db=await openDB();
+  return new Promise((resolve,reject)=>{
+    const r=db.transaction(STORE,'readonly').objectStore(STORE).get(id);
+    r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error);
+  });
+}
+async function clearPDFs(){
+  const db=await openDB();
+  return new Promise((resolve,reject)=>{
+    const r=db.transaction(STORE,'readwrite').objectStore(STORE).clear();
+    r.onsuccess=()=>resolve(); r.onerror=()=>reject(r.error);
+  });
+}
+
+renderHistory();
+
+function handleFiles(files){
+  for(const file of files) if(file.type && file.type.startsWith('image/')) selectedFiles.push(file);
+  document.getElementById('file-input').value='';
+  renderPreviews();
+}
+function renderPreviews(){
+  const grid=document.getElementById('preview-grid');
+  grid.innerHTML='';
+  selectedFiles.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const item=document.createElement('div');
+      item.className='preview-item';
+      item.innerHTML='<img alt="preview">';
+      item.querySelector('img').src=e.target.result;
+      grid.appendChild(item);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+async function clearImages(){
+  selectedFiles=[];
+  document.getElementById('preview-grid').innerHTML='';
+  document.getElementById('file-input').value='';
+  pdfHistory=[];
+  localStorage.removeItem(HISTORY_KEY);
+  try{await clearPDFs();}catch(e){console.error(e);}
+  renderHistory();
+}
+function readFileAsDataURL(file){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(file);
+  });
+}
+async function convertToPDF(){
+  if(!selectedFiles.length){alert('Please upload at least one image first!');return;}
+  try{
+    const doc=new jsPDF();
+    for(let i=0;i<selectedFiles.length;i++){
+      const imageData=await readFileAsDataURL(selectedFiles[i]);
+      if(i>0) doc.addPage();
+      const props=doc.getImageProperties(imageData);
+      const pw=doc.internal.pageSize.getWidth(), ph=doc.internal.pageSize.getHeight();
+      const ratio=Math.min(pw/props.width,ph/props.height);
+      const w=props.width*ratio,h=props.height*ratio;
+      doc.addImage(imageData,'JPEG',(pw-w)/2,(ph-h)/2,w,h);
+    }
+    const blob=doc.output('blob');
+    const id='pdf_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const name=`WASEEM_KHAN_${Date.now()}.pdf`;
+
+    // No automatic download.
+    await putPDF(id,blob);
+    pdfHistory.unshift({id,name,date:new Date().toLocaleTimeString()});
+    localStorage.setItem(HISTORY_KEY,JSON.stringify(pdfHistory));
+    renderHistory();
+
+    selectedFiles=[];
+    document.getElementById('preview-grid').innerHTML='';
+    alert('PDF created successfully. Use Download or Share from Recent History.');
+  }catch(err){console.error(err);alert('PDF could not be created. Please try again.');}
+}
+function renderHistory(){
+  const list=document.getElementById('history-list');
+  list.innerHTML='';
+  if(!pdfHistory.length){
+    list.innerHTML='<li style="color:var(--text-dim); font-size:0.8rem; text-align:center;">No history available</li>';
+    return;
+  }
+  pdfHistory.forEach(item=>{
+    const li=document.createElement('li'); li.className='history-item';
+    li.innerHTML=`<span><i class="fa-solid fa-file-pdf" style="color:var(--primary-red); margin-right:6px;"></i>${escapeHTML(item.name)}</span>
+    <div class="history-actions">
+      <button class="icon-btn" title="Download"><i class="fa-solid fa-download"></i></button>
+      <button class="icon-btn" title="Share"><i class="fa-solid fa-share-nodes"></i></button>
+    </div>`;
+    const [downloadBtn,shareBtn]=li.querySelectorAll('button');
+    downloadBtn.onclick=()=>downloadPDF(item.id,item.name);
+    shareBtn.onclick=()=>sharePdf(item.id,item.name);
+    list.appendChild(li);
+  });
+}
+async function downloadPDF(id,name){
+  const blob=await getPDF(id);
+  if(!blob){alert('This PDF is no longer available.');return;}
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+async function sharePdf(id,name){
+  const blob=await getPDF(id);
+  if(!blob){alert('This PDF is no longer available.');return;}
+  const file=new File([blob],name,{type:'application/pdf'});
+  try{
+    if(navigator.canShare && navigator.canShare({files:[file]})) await navigator.share({title:name,files:[file]});
+    else alert('Sharing this PDF is not supported on this device.');
+  }catch(e){ if(e.name!=='AbortError') console.error(e); }
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function closeModal(){document.getElementById('wp-modal').classList.add('hidden');}
+</script>
+<footer class="developer-footer">DEVELOPER WASEEM KHAN</footer></body>
+</html>
