@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Crush Calculator 💘 | WASEEM HACKER</title>
+<meta name="description" content="A playful, shareable crush compatibility calculator. Entertainment only.">
+<meta name="theme-color" content="#050816">
+<style>
+:root{
+  --pink:#ec4899;--purple:#8b5cf6;--cyan:#22d3ee;--bg:#050816;--text:#fff;
+  --muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.12);--card:rgba(255,255,255,.055);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;line-height:1.5}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:
+radial-gradient(circle at 15% 20%,rgba(236,72,153,.13),transparent 30%),
+radial-gradient(circle at 85% 30%,rgba(99,102,241,.13),transparent 30%),
+radial-gradient(circle at 50% 90%,rgba(34,211,238,.08),transparent 35%);z-index:-2}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}input[type="checkbox"]{accent-color:#ec4899}
+button{color:inherit;cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.7}
+.container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));border:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.glow{box-shadow:0 0 30px rgba(236,72,153,.20),inset 0 0 30px rgba(139,92,246,.05)}
+.btn{transition:.25s transform,.25s box-shadow,.25s opacity;border:0}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(236,72,153,.25)}
+.gradient{background:linear-gradient(90deg,#f9a8d4,#ec4899,#a78bfa,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gradient-text{background:linear-gradient(90deg,#f9a8d4,#ec4899,#a78bfa,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(5,8,22,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.header-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:48px;height:48px;border-radius:17px;background:linear-gradient(135deg,#ec4899,#d946ef,#7c3aed);display:grid;place-items:center;font-size:25px;box-shadow:0 0 30px rgba(236,72,153,.35);flex:none}
+.brand-title{font-weight:900;letter-spacing:-.02em;font-size:23px;line-height:1}
+.brand-sub{color:#f9a8d4;font-size:12px;font-weight:800;letter-spacing:.27em;margin-top:7px}
+.nav{display:flex;align-items:center;gap:25px;color:rgba(255,255,255,.72);font-size:14px}
+.nav a:hover{color:#fff}
+.header-actions{display:flex;align-items:center;gap:9px}
+.icon-btn,.wa-btn{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 13px}
+.wa-btn{background:rgba(16,185,129,.12);border-color:rgba(52,211,153,.22);font-weight:800}
+main{min-height:100vh}
+.hero{position:relative;overflow:hidden}
+.hearts{position:absolute;inset:0;pointer-events:none}
+.heart{position:absolute;animation:float 5s ease-in-out infinite}
+.h1{font-size:clamp(48px,6.5vw,84px);font-weight:950;line-height:.96;letter-spacing:-.055em;margin:0}
+.hero-grid{padding:76px 0 58px;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.85fr);gap:55px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 18px;color:#fce7f3;margin-bottom:26px;font-size:18px}
+.hero-copy{color:var(--muted);font-size:20px;max-width:650px;margin:25px 0 0;line-height:1.75}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.primary-btn,.secondary-btn{border-radius:18px;padding:16px 23px;font-weight:900;font-size:17px;display:inline-flex;align-items:center;justify-content:center}
+.primary-btn{background:linear-gradient(100deg,#ec4899,#d946ef,#7c3aed)}
+.secondary-btn{background:var(--card);border:1px solid var(--line)}
+.status{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.55);font-size:14px;margin-top:28px}
+.status-dot{width:9px;height:9px;border-radius:50%;background:#34d399;animation:pulse 1.8s infinite}
+.hero-card{padding:20px;border-radius:32px}
+.hero-inner{border-radius:24px;min-height:370px;padding:30px;display:grid;place-items:center;text-align:center;background:linear-gradient(135deg,rgba(236,72,153,.10),rgba(139,92,246,.10),rgba(34,211,238,.05));border:1px solid rgba(255,255,255,.09)}
+.hero-emoji{font-size:110px;animation:pulse 1.8s infinite}
+.hero-card-title{font-size:31px;font-weight:900;margin-top:18px}
+.muted{color:var(--muted)}
+.section{padding:65px 0}
+.section-head{text-align:center;max-width:760px;margin:0 auto 38px}
+.eyebrow{color:#f9a8d4;font-weight:800;letter-spacing:.04em}
+.section-title{font-size:clamp(36px,5vw,52px);font-weight:950;line-height:1.05;margin:8px 0}
+.section-desc{color:rgba(255,255,255,.53);margin:12px 0 0}
+.calc-card,.result-card,.daily-card{border-radius:32px;padding:25px}
+.calc-grid{display:grid;grid-template-columns:180px minmax(0,1fr) 230px;gap:25px}
+.label-title,.option-title{font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.16em;margin-bottom:12px}
+.mode-list{display:grid;gap:9px}
+.modeBtn,.typeBtn{border:1px solid var(--line);background:var(--card);border-radius:14px;text-align:left;font-weight:800}
+.modeBtn{padding:13px}
+.modeBtn.active,.typeBtn.active{background:rgba(236,72,153,.20);border-color:rgba(244,114,182,.30)}
+.name-grid{display:grid;grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);gap:15px;align-items:end}
+.field-label{font-size:14px;font-weight:800}
+.input{display:block;width:100%;margin-top:8px;padding:15px 16px;border-radius:17px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);outline:none;color:#fff}
+.input:focus{border-color:rgba(244,114,182,.55);box-shadow:0 0 0 3px rgba(236,72,153,.08)}
+.heart-input{text-align:center;font-size:36px;animation:pulse 1.8s infinite}
+.types{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.typeBtn{border-radius:999px;padding:9px 15px;font-size:14px}
+.calc-btn{width:100%;margin-top:18px;border-radius:17px;padding:16px;background:linear-gradient(100deg,#ec4899,#d946ef,#7c3aed);font-weight:900;font-size:17px;border:0}
+.options{border-radius:18px;padding:15px}
+.option-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0}
+.theme-row{margin-top:16px}
+.theme-dots{display:flex;gap:8px;margin-top:8px}
+.themeDot{width:29px;height:29px;border-radius:50%;border:2px solid rgba(255,255,255,.15)}
+.themeDot[data-theme="pink"]{background:#ec4899}.themeDot[data-theme="violet"]{background:#8b5cf6}.themeDot[data-theme="cyan"]{background:#22d3ee}.themeDot[data-theme="green"]{background:#34d399}
+.result.hidden{display:none!important}
+.result-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:30px;align-items:center}
+.score-ring{width:224px;height:224px;border-radius:50%;margin:0 auto;padding:12px;background:conic-gradient(#ec4899 var(--score),rgba(255,255,255,.1) 0);display:grid;place-items:center}
+.score-inner{width:100%;height:100%;border-radius:50%;background:#070a18;display:grid;place-items:center;text-align:center}
+.score{font-size:62px;font-weight:950}
+.result-title{font-size:25px;font-weight:900;margin-top:20px}
+.pair-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:18px;font-weight:900;margin-bottom:18px}
+.metrics{display:grid;gap:12px}
+.metric-top{display:flex;justify-content:space-between;font-size:14px}
+.metric-name{color:rgba(255,255,255,.60)}
+.bar{height:8px;margin-top:7px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ec4899,#7c3aed)}
+.result-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.action-btn{border-radius:13px;padding:12px;font-weight:800;border:1px solid var(--line);background:var(--card)}
+.action-green{background:rgba(16,185,129,.12);border-color:rgba(52,211,153,.22)}
+.action-pink{background:rgba(236,72,153,.12);border-color:rgba(244,114,182,.22)}
+.result-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.info-card{border-radius:18px;padding:19px}
+.info-title{font-size:18px;font-weight:900}
+.info-body{color:rgba(255,255,255,.65);margin-top:10px;line-height:1.8}
+.forecast{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.forecast-item{border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px}
+.forecast-label{font-size:12px;color:rgba(255,255,255,.40)}
+.forecast-value{font-weight:800;margin-top:4px}
+.modes-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.mode-card{border-radius:18px;padding:20px;text-align:left;min-height:145px}
+.mode-icon{font-size:31px}.mode-name{font-weight:900;margin-top:10px}.mode-desc{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+.daily-row{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.daily-btn{border:0;border-radius:16px;padding:13px 19px;background:linear-gradient(100deg,#7c3aed,#ec4899);font-weight:900}
+.daily-box,.history-list{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.history-list{grid-template-columns:repeat(3,1fr);margin-top:0}
+.history-card{border-radius:18px;padding:18px;text-align:left;border:1px solid var(--line);background:var(--card)}
+.history-type{font-size:12px;color:#f9a8d4}.history-score{font-size:31px;font-weight:950;margin-top:7px}
+.about{border-top:1px solid rgba(255,255,255,.10)}
+.about-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;padding:60px 0}
+.about-title{font-size:34px;font-weight:900;margin:8px 0}
+.about-text{color:rgba(255,255,255,.55);line-height:1.8;max-width:760px}
+footer{border-top:1px solid rgba(255,255,255,.10)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:35px;padding:38px 0}
+.footer-brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.footer-logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#ec4899,#7c3aed);display:grid;place-items:center}
+.footer-link{display:block;color:rgba(255,255,255,.55);font-size:14px;margin-top:9px}
+.footer-link:hover{color:#fff}
+.footer-note{color:rgba(255,255,255,.45);font-size:14px;line-height:1.6}
+.copyright{text-align:center;color:rgba(255,255,255,.25);font-size:12px;padding:0 0 28px}
+.toast{position:fixed;top:92px;right:16px;z-index:100;display:none;padding:12px 16px;border-radius:16px;font-size:14px}
+.toast.show{display:block}
+.fadeIn{animation:fade .55s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-18px) rotate(5deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.spin{animation:spin 1s linear infinite;display:inline-block}@keyframes spin{to{transform:rotate(360deg)}}
+body.light{--bg:#f5f7ff;--text:#101326;--muted:rgba(16,19,38,.62)}body.light:before{opacity:.45}body.light header{background:rgba(245,247,255,.85)}body.light .glass{background:rgba(255,255,255,.72);border-color:rgba(16,19,38,.12)}body.light .muted,.light .section-desc,.light .hero-copy{color:rgba(16,19,38,.62)}body.light .input{color:#111827;background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}body.light .score-inner{background:#fff}body.light .nav{color:rgba(16,19,38,.68)}body.light .result-note,.light .copyright{color:rgba(16,19,38,.4)}
+@media(max-width:1050px){.nav{display:none}.hero-grid{grid-template-columns:1fr 1fr;gap:30px}.calc-grid{grid-template-columns:160px 1fr}.options{grid-column:1/-1}.modes-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){
+.container{width:min(100% - 30px,600px)}
+.header-inner{min-height:70px}.logo{width:45px;height:45px}.brand-title{font-size:20px}.brand-sub{font-size:10px}.wa-btn{display:none}
+.hero-grid{grid-template-columns:1fr;padding:54px 0 45px;gap:35px}
+.badge{font-size:17px;padding:11px 15px}.h1{font-size:clamp(47px,13vw,68px)}.hero-copy{font-size:18px;line-height:1.7}
+.hero-card{display:block;padding:15px}.hero-inner{min-height:300px;padding:22px}.hero-emoji{font-size:88px}.hero-card-title{font-size:26px}
+.section{padding:52px 0}.calc-grid{grid-template-columns:1fr}.name-grid{grid-template-columns:1fr}.heart-input{display:none}
+.result-grid{grid-template-columns:1fr}.bottom-grid,.about-grid{grid-template-columns:1fr}.modes-grid{grid-template-columns:repeat(2,1fr)}
+.daily-row{align-items:flex-start;flex-direction:column}.daily-box{grid-template-columns:repeat(2,1fr)}.history-list{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}
+.result-actions{grid-template-columns:1fr 1fr}.result-actions button:last-child{grid-column:1/-1}
+}
+@media(max-width:430px){.container{width:calc(100% - 24px)}.header-actions .icon-btn{padding:9px 11px}.h1{font-size:45px}.primary-btn,.secondary-btn{width:100%}.hero-buttons{flex-direction:column}.badge{font-size:15px}.calc-card,.result-card,.daily-card{padding:17px;border-radius:24px}.modes-grid{gap:8px}.mode-card{padding:15px;min-height:130px}.daily-box{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-grid>div:first-child{grid-column:auto}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast glass"></div>
+
+<header>
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <div class="logo">💘</div>
+      <div><div class="brand-title">CRUSH</div><div class="brand-sub">CALCULATOR</div></div>
+    </a>
+    <nav class="nav">
+      <a href="#home">Home</a><a href="#calculator">Calculator</a><a href="#modes">Modes</a><a href="#daily">Daily</a><a href="#history">History</a><a href="#about">About</a>
+    </nav>
+    <div class="header-actions">
+      <button id="themeBtn" class="icon-btn btn" aria-label="Toggle theme">🌙</button>
+      <a id="waNav" href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" target="_blank" rel="noopener" class="wa-btn">🟢 WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+<section class="hero">
+  <div class="hearts">
+    <div class="heart" style="left:7%;top:140px;font-size:48px;opacity:.55">💗</div>
+    <div class="heart" style="left:18%;top:245px;font-size:30px;opacity:.45">💜</div>
+    <div class="heart" style="right:15%;top:130px;font-size:65px;opacity:.55">💘</div>
+    <div class="heart" style="right:5%;top:310px;font-size:31px;opacity:.45">💕</div>
+  </div>
+  <div class="container hero-grid">
+    <div>
+      <div class="badge glass">✨ Fun • Fast • Shareable</div>
+      <h1 class="h1">HOW MUCH DO<br><span class="gradient">THEY LIKE YOU?</span> 💘</h1>
+      <p class="hero-copy">Enter two names and unlock a playful compatibility result, personality match, funny forecasts and a share-ready result card.</p>
+      <div class="hero-buttons">
+        <a href="#calculator" class="primary-btn btn">💘 Calculate Love →</a>
+        <button onclick="scrollToId('modes')" class="secondary-btn btn">Explore Modes</button>
+      </div>
+      <div class="status"><span class="status-dot"></span>100% client-side • no account required</div>
+    </div>
+    <div class="hero-card glass glow">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-emoji">💘</div>
+          <div class="hero-card-title">Find Your Love Vibe</div>
+          <div class="muted">A playful algorithm — not a scientific test.</div>
+          <div style="margin-top:20px;font-size:30px">❤️ 💜 💙 💗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calculator" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">THE MAIN EVENT</div><h2 class="section-title">💘 Crush Calculator</h2>
+      <p class="section-desc">Same two names produce the same playful score. Nothing is sent to a server.</p>
+    </div>
+    <div class="calc-card glass glow">
+      <div class="calc-grid">
+        <div>
+          <div class="label-title">Choose mode</div>
+          <div id="modeButtons" class="mode-list">
+            <button data-mode="love" class="modeBtn active">❤️ Love</button>
+            <button data-mode="friendship" class="modeBtn">🤝 Friendship</button>
+            <button data-mode="group" class="modeBtn">👥 Group</button>
+            <button data-mode="secret" class="modeBtn">🤫 Secret</button>
+          </div>
+        </div>
+        <div>
+          <div class="name-grid">
+            <label class="field-label">Your Name<input id="nameA" maxlength="30" class="input" placeholder="e.g. Waseem "></label>
+            <div class="heart-input">❤️</div>
+            <label class="field-label" id="nameBWrap">Crush Name<input id="nameB" maxlength="30" class="input" placeholder="e.g. any name"></label>
+          </div>
+          <div class="types">
+            <button class="typeBtn active" data-type="crush">💘 Crush</button>
+            <button class="typeBtn" data-type="friendship">🤝 Friendship</button>
+            <button class="typeBtn" data-type="best">👑 Best Friends</button>
+            <button class="typeBtn" data-type="couple">💞 Couple</button>
+          </div>
+          <button id="calcBtn" class="calc-btn btn">✨ CALCULATE COMPATIBILITY ✨</button>
+        </div>
+        <div>
+          <div class="label-title">Options</div>
+          <div class="options glass">
+            <label class="option-row">Sound <input id="sound" type="checkbox"></label>
+            <label class="option-row">Visuals <input id="visuals" type="checkbox" checked></label>
+            <div class="theme-row"><div>Theme</div><div class="theme-dots">
+              <button class="themeDot" data-theme="pink" aria-label="Pink theme"></button>
+              <button class="themeDot" data-theme="violet" aria-label="Violet theme"></button>
+              <button class="themeDot" data-theme="cyan" aria-label="Cyan theme"></button>
+              <button class="themeDot" data-theme="green" aria-label="Green theme"></button>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="result" class="result section hidden" style="padding-top:0">
+  <div class="container">
+    <div class="result-card glass glow fadeIn">
+      <div class="result-grid">
+        <div style="text-align:center">
+          <div class="score-ring" id="scoreRing" style="--score:87%">
+            <div class="score-inner"><div><div id="score" class="score">87%</div><div class="muted" style="font-size:13px">OVERALL VIBE</div></div></div>
+          </div>
+          <h3 id="resultTitle" class="result-title">Strong Crush Energy 🔥</h3>
+          <p id="resultCopy" class="muted"></p>
+        </div>
+        <div>
+          <div class="pair-row"><span id="pairName">Abdullah ❤️ Sara</span><span id="modeTag" style="color:#f9a8d4">CRUSH</span></div>
+          <div id="metrics" class="metrics"></div>
+          <div class="result-actions">
+            <button id="downloadBtn" class="action-btn action-green btn">⬇️ Download</button>
+            <button id="copyBtn" class="action-btn btn">📋 Copy</button>
+            <button id="shareBtn" class="action-btn action-pink btn">🔗 Share</button>
+          </div>
+          <div class="result-note">Entertainment only. The score does not measure real feelings or predict real relationships.</div>
+        </div>
+      </div>
+      <div class="bottom-grid">
+        <div class="info-card glass"><div class="info-title">🎭 Personality Match</div><div id="personality" class="info-body"></div></div>
+        <div class="info-card glass"><div class="info-title">🔮 Vibe Forecast</div><div id="forecast" class="forecast"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modes" class="section">
+  <div class="container">
+    <div class="section-head"><div class="eyebrow">MORE THAN LOVE</div><h2 class="section-title">Fun Modes</h2></div>
+    <div class="modes-grid">
+      <button onclick="setMode('love')" class="mode-card glass btn"><div class="mode-icon">❤️</div><div class="mode-name">Love</div><div class="mode-desc">Classic crush score</div></button>
+      <button onclick="setMode('friendship')" class="mode-card glass btn"><div class="mode-icon">🤝</div><div class="mode-name">Friendship</div><div class="mode-desc">Bestie chemistry</div></button>
+      <button onclick="setMode('secret')" class="mode-card glass btn"><div class="mode-icon">🤫</div><div class="mode-name">Secret</div><div class="mode-desc">One name only</div></button>
+      <button onclick="setMode('group')" class="mode-card glass btn"><div class="mode-icon">👥</div><div class="mode-name">Group</div><div class="mode-desc">Compare 2 names</div></button>
+      <button onclick="dailyCrush()" class="mode-card glass btn"><div class="mode-icon">🔮</div><div class="mode-name">Daily Crush</div><div class="mode-desc">Today's vibe</div></button>
+      <button onclick="surprise()" class="mode-card glass btn"><div class="mode-icon">🎲</div><div class="mode-name">Surprise</div><div class="mode-desc">Random result</div></button>
+    </div>
+  </div>
+</section>
+
+<section id="daily" class="section" style="padding-top:0">
+  <div class="container">
+    <div class="daily-card glass glow">
+      <div class="daily-row"><div><div class="eyebrow">EVERY 24 HOURS</div><h2 class="section-title" style="font-size:32px;margin-top:4px">🔮 Daily Crush Check</h2><p class="section-desc">A playful daily vibe for your next conversation.</p></div><button onclick="dailyCrush()" class="daily-btn btn">Generate Today’s Vibe</button></div>
+      <div id="dailyBox" class="daily-box"></div>
+    </div>
+  </div>
+</section>
+
+<section id="history" class="section" style="padding-top:0">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px">
+      <div><div class="eyebrow">LOCAL ONLY</div><h2 class="section-title" style="font-size:32px">📊 Result History</h2></div>
+      <button onclick="clearHistory()" class="icon-btn">Clear History</button>
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="container about-grid">
+    <div><div class="eyebrow">ABOUT</div><h2 class="about-title">Built as a playful web experience.</h2><p class="about-text">Crush Calculator uses a deterministic client-side hash to turn names into a repeatable entertainment score. No login, no server database, and no claim that the number reflects real emotions.</p></div>
+    <div class="glass info-card"><div class="info-title">🛡️ Privacy</div><p class="about-text" style="font-size:14px;margin-top:8px">Names stay in your browser unless you choose to share a generated result. History uses localStorage and can be cleared anytime.</p></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><div class="footer-logo">💘</div><div>CRUSH CALCULATOR</div></div>
+      <p class="footer-note">CREATOR ❤️ <b>WASEEM HACKER</b></p>
+    </div>
+    <div><div style="font-weight:800">Quick Links</div><a class="footer-link" href="#calculator">Calculator</a><a class="footer-link" href="#modes">Modes</a><a class="footer-link" href="#history">History</a></div>
+    <div><div style="font-weight:800">Community</div><a id="waFoot" class="footer-link" href="https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S" target="_blank" rel="noopener">🟢 WhatsApp Channel</a><div style="font-weight:800;margin-top:17px">Notice</div><p class="footer-note" style="margin-top:7px">Entertainment only. Results are generated locally and are not scientific.</p></div>
+  </div>
+  <div class="copyright">© <span id="year"></span> Crush Calculator • WASEEM HACKER</div>
+</footer>
+
+<script>
+/* ===================== CONFIG =====================
+  Replace these with your real links.
+*/
+const CONFIG={
+  whatsappChannel:"https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S",
+  brand:"Crush Calculator"
+};
+
+document.getElementById('waNav').href=CONFIG.whatsappChannel;
+document.getElementById('waFoot').href=CONFIG.whatsappChannel;
+document.getElementById('year').textContent=new Date().getFullYear();
+
+let currentMode='love', currentType='crush', lastResult=null;
+const titles=[
+  ["Basically Antarctica 🧊","There is barely any vibe here — try not to overthink it 😂"],
+  ["Something Is There 👀","Interesting energy. This one deserves a little conversation."],
+  ["Getting Interesting 😏","The vibe is warming up. Keep it playful."],
+  ["Strong Crush Energy 🔥","That is a seriously spicy compatibility result."],
+  ["Dangerous Chemistry 💘","This combination is doing a little too much 😂"]
+];
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.add('hidden'),2200)}
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function normalize(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ')}
+function hashSeed(a,b,extra=''){let s=normalize(a)+'|'+normalize(b)+'|'+extra;let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function seeded(seed){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
+function scoreFor(a,b,type){const seed=hashSeed(a,b,type);let x=seeded(seed), base=35+Math.floor(x*61); if(type==='friendship')base=Math.min(99,base+4); if(type==='best')base=Math.min(99,base+7); if(type==='couple')base=Math.min(99,base+2); return base}
+function labels(score){if(score<=20)return titles[0];if(score<=40)return titles[1];if(score<=60)return titles[2];if(score<=89)return titles[3];return titles[4]}
+function metric(seed,score,offset){let v=33+Math.floor(seeded(seed+offset)*64);return Math.max(20,Math.min(99,Math.round((v+score)/2)))}
+function setMode(m){
+ currentMode=m;
+ document.querySelectorAll('.modeBtn').forEach(b=>{b.classList.remove('active','bg-pink-500/20','border-pink-400/30');b.classList.add('glass');if(b.dataset.mode===m){b.classList.add('active','bg-pink-500/20','border-pink-400/30');b.classList.remove('glass')}});
+ const wrap=document.getElementById('nameBWrap'); if(m==='secret'){wrap.classList.add('opacity-40');document.getElementById('nameB').value=''}else{wrap.classList.remove('opacity-40')}
+ scrollToId('calculator');
+}
+function showResult(a,b,type,score){
+ const [title,copy]=labels(score), seed=hashSeed(a,b,type);
+ const metrics=[['Chemistry',metric(seed,score,1)],['Understanding',metric(seed,score,2)],['Fun Together',metric(seed,score,3)],['Friendship',metric(seed,score,4)],['Communication',metric(seed,score,5)],['Overall Vibe',score]];
+ document.getElementById('score').textContent=score+'%';document.getElementById('scoreRing').style.setProperty('--score',score+'%');
+ document.getElementById('resultTitle').textContent=title;document.getElementById('resultCopy').textContent=copy;
+ document.getElementById('pairName').textContent=b?(a+' ❤️ '+b):(a+' 🤫 Secret Crush');
+ document.getElementById('modeTag').textContent=type.toUpperCase();
+ document.getElementById('metrics').innerHTML=metrics.map(([n,v])=>`<div><div class="metric-top"><span class="metric-name">${n}</span><b>${v}%</b></div><div class="bar"><div class="bar-fill" style="width:${v}%"></div></div></div>`).join('');
+ const p1=['The Quiet Admirer 🤫','The Chaotic Charmer 😈','The Mysterious One 👀','The Golden Retriever Energy 🐶','The Smooth Talker 😎'][seed%5];
+ const p2=['The Listener 🎧','The Meme Dealer 😂','The Overthinker 🧠','The Sunshine Person ☀️','The Late Reply Specialist 📱'][Math.floor(seeded(seed+11)*5)];
+ document.getElementById('personality').innerHTML=`<b>${a}</b> — ${p1}<br/><b>${b||'Secret Crush'}</b> — ${p2}<br/><span style="color:#f9a8d4">Together:</span> ${score>80?'an unexpectedly powerful duo 💥':score>60?'a surprisingly fun combination ✨':'a classic “let’s see what happens” situation 👀'}`;
+ const f=['First message','Who replies first','Who apologizes','Who makes the other laugh','Reply-time vibe','Most likely to be jealous'];
+ document.getElementById('forecast').innerHTML=f.map((x,i)=>`<div class="forecast-item"><div class="forecast-label">${x}</div><div class="forecast-value">${['Probably you 📱','Probably them 👀','The calmer one 🤝','Whoever sends the meme 😂','Random but memorable ⏱️','Nobody — peace wins ✌️'][Math.floor(seeded(seed+i+30)*6)]}</div></div>`).join('');
+ document.getElementById('result').classList.remove('hidden');
+ scrollToId('result');
+ lastResult={a,b,type,score,title};
+ saveHistory(lastResult);
+}
+function calculate(){
+ const a=document.getElementById('nameA').value.trim(), b=document.getElementById('nameB').value.trim();
+ if(!a){toast('Enter your name first ✨');return}
+ if(currentMode!=='secret'&&!b){toast('Enter the second name 💘');return}
+ const finalB=currentMode==='secret'?'':b;
+ const type=currentType;
+ const btn=document.getElementById('calcBtn'), old=btn.innerHTML; btn.disabled=true; btn.innerHTML='<span class="spin inline-block mr-2">◌</span> Analyzing your vibes...';
+ setTimeout(()=>{const s=scoreFor(a,finalB,type);showResult(a,finalB,type,s);btn.disabled=false;btn.innerHTML=old},700);
+}
+document.getElementById('calcBtn').addEventListener('click',calculate);
+document.querySelectorAll('.modeBtn').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.querySelectorAll('.typeBtn').forEach(b=>b.addEventListener('click',()=>{currentType=b.dataset.type;document.querySelectorAll('.typeBtn').forEach(x=>x.classList.remove('active','bg-pink-500/20','border-pink-400/30'));b.classList.add('active','bg-pink-500/20','border-pink-400/30')}));
+function saveHistory(r){let h=JSON.parse(localStorage.getItem('crushHistory')||'[]');h=[r,...h.filter(x=>!(x.a===r.a&&x.b===r.b&&x.type===r.type))].slice(0,12);localStorage.setItem('crushHistory',JSON.stringify(h));renderHistory()}
+function renderHistory(){let h=JSON.parse(localStorage.getItem('crushHistory')||'[]');const el=document.getElementById('historyList');if(!h.length){el.innerHTML='<div class="history-card muted">No saved results yet. Run a calculation to create your first one.</div>';return}el.innerHTML=h.map((x,i)=>`<button onclick="reuse(${i})" class="history-card btn"><div class="history-type">${x.type.toUpperCase()}</div><div style="font-weight:900;margin-top:4px">${escapeHtml(x.a)} ${x.b?'❤️ '+escapeHtml(x.b):'🤫'}</div><div class="history-score gradient">${x.score}%</div><div class="muted" style="font-size:12px;margin-top:4px">${escapeHtml(x.title)}</div></button>`).join('');window._hist=h}
+function reuse(i){let x=window._hist[i];document.getElementById('nameA').value=x.a;document.getElementById('nameB').value=x.b||'';currentType=x.type;showResult(x.a,x.b,x.type,x.score)}
+function clearHistory(){localStorage.removeItem('crushHistory');renderHistory();toast('History cleared 🗑️')}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function dailyCrush(){
+ const day=new Date().toISOString().slice(0,10), seed=hashSeed(day,'daily'), score=50+Math.floor(seeded(seed)*50);
+ const items=[['Lucky vibe',score>80?'🔥 Magnetic':'✨ Chill'],['Best chat window',`${9+Math.floor(seeded(seed+2)*10)}:00 – ${16+Math.floor(seeded(seed+3)*6)}:00`],['Conversation energy',score>75?'High 💬':'Warm ☺️'],['Mission','Send one genuinely funny message 😂']];
+ document.getElementById('dailyBox').innerHTML=items.map(x=>`<div class="history-card"><div class="forecast-label">${x[0]}</div><div style="font-weight:900;margin-top:8px">${x[1]}</div></div>`).join('');
+ scrollToId('daily');
+}
+function surprise(){const names=['You','Mystery Person'];const s=25+Math.floor(Math.random()*75);showResult(names[0],names[1],'surprise',s)}
+async function copyResult(){if(!lastResult)return;const txt=`💘 Crush Calculator\n${lastResult.a} ${lastResult.b?'❤️ '+lastResult.b:''}\n${lastResult.score}% — ${lastResult.title}\nEntertainment only.`;try{await navigator.clipboard.writeText(txt);toast('Result copied 📋')}catch{toast('Copy failed — select and copy manually')}}
+function shareResult(){if(!lastResult)return;const txt=`💘 ${lastResult.a} ${lastResult.b?'❤️ '+lastResult.b:''} scored ${lastResult.score}% on Crush Calculator!`;if(navigator.share){navigator.share({title:'Crush Calculator',text:txt}).catch(()=>{})}else{copyResult()}}
+function downloadResult(){
+ if(!lastResult)return;
+ const c=document.createElement('canvas');c.width=1200;c.height=720;const x=c.getContext('2d');
+ const g=x.createLinearGradient(0,0,1200,720);g.addColorStop(0,'#070a18');g.addColorStop(.55,'#26103f');g.addColorStop(1,'#4a113b');x.fillStyle=g;x.fillRect(0,0,1200,720);
+ x.fillStyle='#fff';x.font='900 58px Arial';x.fillText('💘 CRUSH CALCULATOR',70,100);
+ x.fillStyle='#f9a8d4';x.font='800 42px Arial';x.fillText(`${lastResult.a} ${lastResult.b?'❤️ '+lastResult.b:''}`,70,180);
+ x.fillStyle='#fff';x.font='900 150px Arial';x.fillText(lastResult.score+'%',70,360);
+ x.font='700 38px Arial';x.fillStyle='#f0abfc';x.fillText(lastResult.title,70,435);
+ x.font='500 24px Arial';x.fillStyle='#c7c9d1';x.fillText('Playful result • Entertainment only',70,520);
+ x.font='700 24px Arial';x.fillStyle='#67e8f9';x.fillText('Made with ❤️ by WASEEM HACKER',70,615);
+ const a=document.createElement('a');a.download='crush-result.png';a.href=c.toDataURL('image/png');a.click();toast('Result image downloaded ⬇️')
+}
+document.getElementById('copyBtn').onclick=copyResult;document.getElementById('shareBtn').onclick=shareResult;document.getElementById('downloadBtn').onclick=downloadResult;
+document.getElementById('themeBtn').onclick=()=>document.documentElement.classList.toggle('light');
+document.querySelectorAll('.themeDot').forEach(b=>b.onclick=()=>document.body.style.setProperty('--pink',b.dataset.theme==='cyan'?'#22d3ee':b.dataset.theme==='green'?'#34d399':b.dataset.theme==='violet'?'#8b5cf6':'#ec4899'));
+document.getElementById('nameB').addEventListener('input',()=>{if(currentMode==='secret')document.getElementById('nameB').value=''});
+renderHistory();dailyCrush();
+
+</script>
+<script>
+/* Safe branding/link initialization for the standalone version. */
+document.title='Crush Calculator 💘 | WASEEM HACKER';
+document.getElementById('waNav').href='https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S';
+document.getElementById('waFoot').href='https://whatsapp.com/channel/0029VbD4m3ZFCCoWbOzY3x2S';
+</script>
+</body>
+</html>
